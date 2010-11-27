@@ -1,8 +1,11 @@
 package mx.gwtutils;
 
+import java.util.List;
+import java.util.Vector;
 
 
-public class MxGWTUtils {
+
+public class MxroGWTUtils {
 	public static String removeFirstElement(String s, String separator) {
 		final String[] list = s.split(separator);
 		if (list.length == 0) {
@@ -126,5 +129,33 @@ public class MxGWTUtils {
 	        return s;
 	
 	    return s.substring(0, lastSeparatorIndex+1) + filename.substring(0, extensionIndex);
+	}
+
+	public static <GPEntry> List<GPEntry> flip(List<GPEntry> list) {
+		List<GPEntry> flipped = new Vector<GPEntry>();
+		for (GPEntry entry : list) {
+			flipped.add(0, entry);
+		}
+		return flipped;
+	}
+
+	public static String assertSlash(String ofString) {
+		if (ofString.endsWith("/")) return ofString;
+		
+		return ofString.concat("/");
+			
+	}
+
+	public static <GPType> List<GPType> asList(GPType node) {
+		List<GPType> list = new Vector<GPType>();
+		list.add(node);
+		return list;
+	}
+
+	public static <GPType> List<GPType> asList(GPType node1, GPType node2) {
+		List<GPType> list = new Vector<GPType>();
+		list.add(node1);
+		list.add(node2);
+		return list;
 	}
 }
