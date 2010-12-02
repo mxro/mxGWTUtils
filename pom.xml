@@ -87,8 +87,8 @@
 						<Bundle-Version>${project.version}</Bundle-Version>
 						<Import-Package>${module.importedPackages}</Import-Package>
 						<Export-Package>${module.exportedPackages}</Export-Package>
-						<Service-Component>${module.serviceDefinitions}
-						</Service-Component>
+						<Service-Component>${module.serviceDefinitions}</Service-Component>
+						<Bundle-RequiredExecutionEnvironment>JavaSE-1.6</Bundle-RequiredExecutionEnvironment>
 					</instructions>
 				</configuration>
 			</plugin>
