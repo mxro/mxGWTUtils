@@ -33,7 +33,7 @@
 		<groupId>de.mxro.thrd.gwtuser</groupId>
 		<artifactId>thrdGWTUser</artifactId>
 		<version>[0.0.2,)</version>
-		<scope>provided</scope>
+		 <scope>provided</scope>
 		</dependency>
 	
 	

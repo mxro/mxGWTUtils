@@ -112,7 +112,7 @@ public class MxroGWTUtils {
 	 */
 	public static String removeExtension(String s) {
 	
-	    String separator = ".";//System.getProperty("file.separator");
+	    String separator = System.getProperty("file.separator");
 	    String filename;
 	
 	    // Remove the path upto the filename.

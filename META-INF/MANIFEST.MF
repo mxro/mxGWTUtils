@@ -7,7 +7,7 @@ Created-By: Apache Maven Bundle Plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Build-Jdk: 1.6.0_22
 Bundle-Version: 0.0.2.SNAPSHOT
-Bnd-LastModified: 1291322677609
+Bnd-LastModified: 1291358780022
 Bundle-ManifestVersion: 2
 Import-Package: mx.gwtutils
 Bundle-SymbolicName: mxGWTUtils
