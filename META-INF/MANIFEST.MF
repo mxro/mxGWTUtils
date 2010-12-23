@@ -1,13 +1,13 @@
 Manifest-Version: 1.0
 Export-Package: mx.gwtutils
-Built-By: Max
+Built-By: mx
 Tool: Bnd-0.0.357
 Bundle-Name: mxGWTUtils
 Created-By: Apache Maven Bundle Plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Build-Jdk: 1.6.0_22
 Bundle-Version: 0.0.2
-Bnd-LastModified: 1292460271177
+Bnd-LastModified: 1292836890479
 Bundle-ManifestVersion: 2
 Import-Package: mx.gwtutils
 Bundle-SymbolicName: mxGWTUtils
