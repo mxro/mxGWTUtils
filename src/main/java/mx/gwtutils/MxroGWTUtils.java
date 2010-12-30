@@ -32,6 +32,25 @@ public class MxroGWTUtils {
 	        '0'	                                      
 	};
 
+	/**
+	 * @see #getSimpleName(String)
+	 *
+	 */
+	public static String getSimpleName(String forName, int maxCharacters) {
+		String name = getSimpleName(forName);
+		if (name.length() > maxCharacters) return name.substring(0, maxCharacters);
+		return name;
+	}
+	
+	/**
+	 * Simplifies any given string and makes it conformant as file name for
+	 * an URI. Illegal characters are replaced by an '_'.<br/><br />
+	 * For legal characters, see {@link #allowedCharacters}:<br/>
+	 * {@value #allowedCharacters}
+	 * 
+	 * @param forName
+	 * @return
+	 */
 	public static String getSimpleName(String forName) {
 		final String n = forName;
 		if (n.length() > 0) {
