@@ -123,19 +123,30 @@ public class MxroGWTUtils {
 		return "";
 	}
 
+	public static String getClassSimpleName(Class<?> clz) {
+		String name = clz.getName();
+		int endCutOff = name.length();
+		int beginCutOff = name.lastIndexOf(".")+1;
+		
+		if (beginCutOff == -1) beginCutOff = 1;
+		
+		return name.substring(beginCutOff, endCutOff);
+	}
+	
 	/**
 	 * from http://stackoverflow.com/questions/941272/how-do-i-trim-a-file-extension-from-a-string-in-java
 	 * 
 	 * @param s
 	 * @return
 	 */
-	public static String removeExtension(String s) {
+	public static String removeExtension(final String s) {
+		final String works = s+"";
+	    final String separator = "/"; //System.getProperty("file.separator");
+	    
+	    final String filename;
 	
-	    String separator = System.getProperty("file.separator");
-	    String filename;
-	
-	    // Remove the path upto the filename.
-	    int lastSeparatorIndex = s.lastIndexOf(separator);
+	    // Remove the path up to the filename.
+	    int lastSeparatorIndex = works.replaceAll("\\\\", "/").lastIndexOf(separator);
 	    if (lastSeparatorIndex == -1) {
 	        filename = s;
 	    } else {

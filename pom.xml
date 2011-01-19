@@ -10,7 +10,7 @@
 		<gwtVersion>2.1.0</gwtVersion>
 		<module.draftCompile>true</module.draftCompile>
 		<module.importedPackages>
-		    *
+		    org.junit,org.hamcrest,*
 		</module.importedPackages>
 		<module.exportedPackages>!mx.gwtutils.internal*,mx.gwtutils*
 		</module.exportedPackages>
@@ -36,7 +36,12 @@
 		 <scope>provided</scope>
 		</dependency>
 	
-	
+	<dependency>
+	   <groupId>de.mxro.thrd.hamcrestgwt</groupId>   
+		<artifactId>thrdHamcrestGWT</artifactId>              
+		<version>[0.0.3,)</version>
+		
+		</dependency>
 		
 		<dependency>
             <groupId>junit</groupId>
