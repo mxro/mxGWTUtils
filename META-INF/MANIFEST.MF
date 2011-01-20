@@ -9,6 +9,12 @@ Build-Jdk: 1.6.0_20
 Bundle-Version: 0.0.2
 Bnd-LastModified: 1295474860133
 Bundle-ManifestVersion: 2
-Import-Package: mx.gwtutils,org.hamcrest;version="0.0",org.junit
+Import-Package: com.google.common,
+ com.google.common.annotations,
+ com.google.common.base,
+ com.google.common.testing,
+ mx.gwtutils,
+ org.hamcrest;version="0.0",
+ org.junit
 Bundle-SymbolicName: mxGWTUtils
 
