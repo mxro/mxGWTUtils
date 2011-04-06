@@ -7,7 +7,7 @@ Created-By: Apache Maven Bundle Plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Build-Jdk: 1.6.0_22
 Bundle-Version: 0.0.2
-Bnd-LastModified: 1301960217282
+Bnd-LastModified: 1302127524874
 Bundle-ManifestVersion: 2
 Import-Package: com.google.common.base,mx.gwtutils,org.hamcrest;versio
  n="0.0",org.junit
