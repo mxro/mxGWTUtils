@@ -1,7 +1,5 @@
 package mx.gwtutils.tests;
 
-import java.io.File;
-
 import mx.gwtutils.MxroGWTUtils;
 
 import org.junit.Assert;
