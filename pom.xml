@@ -3,11 +3,12 @@
 <project>
 	<groupId>de.mxro.gtwutils</groupId>
 	<artifactId>mxGWTUtils</artifactId>
-	<version>0.0.2</version>
+	<version>0.0.3-SNAPSHOT</version>
 	
 	<properties>
 		
-		<gwtVersion>2.1.0</gwtVersion>
+		<module.gwtVersion>2.2.0</module.gwtVersion>
+		
 		<module.draftCompile>true</module.draftCompile>
 		<module.importedPackages>
 		    org.junit,de.mxro.thrd.hamcrest,*
@@ -30,11 +31,19 @@
 	
 		<!-- only for gwt maven plugin!!! -->
 		<dependency>
+					<groupId>com.google.gwt</groupId>
+					<artifactId>gwt-user</artifactId>
+					<version>${module.gwtVersion}</version>
+					<scope>provided</scope>
+				</dependency>
+				
+		
+		<!-- <dependency>
 		<groupId>de.mxro.thrd.gwtuser</groupId>
 		<artifactId>thrdGWTUser</artifactId>
 		<version>[0.0.2,)</version>
 		 <scope>provided</scope>
-		</dependency>
+		</dependency> -->
 	
 	<dependency>
 	   <groupId>de.mxro.thrd.hamcrestgwt</groupId>   
@@ -86,6 +95,7 @@
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
 				<extensions>true</extensions>
+				<version>2.2.0</version>
 				<configuration>
 					<instructions>
 						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
@@ -104,16 +114,15 @@
 			<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>gwt-maven-plugin</artifactId>
-				
-				<version>2.1.1-SNAPSHOT</version>
+				<artifactId>gwt-maven-plugin</artifactId>		
+				<version>2.2.0</version>
 				<configuration>
 					
 					<draftCompile>${module.draftCompile}</draftCompile>
 					<logLevel>INFO</logLevel>
 					<!--  -->
 					<validateOnly>true</validateOnly>
-					<gwtVersion>${gwtVersion}</gwtVersion>
+					<gwtVersion>${module.gwtVersion}</gwtVersion>
 					
 					
 					 <webappDirectory>${basedir}/src/main/webapp</webappDirectory>
