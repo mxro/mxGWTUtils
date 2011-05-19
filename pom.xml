@@ -10,7 +10,7 @@
 		<gwtVersion>2.1.0</gwtVersion>
 		<module.draftCompile>true</module.draftCompile>
 		<module.importedPackages>
-		    org.junit,org.hamcrest,*
+		    org.junit,de.mxro.thrd.hamcrest,*
 		</module.importedPackages>
 		<module.exportedPackages>!mx.gwtutils.internal*,mx.gwtutils*
 		</module.exportedPackages>

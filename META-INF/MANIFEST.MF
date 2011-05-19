@@ -5,11 +5,15 @@ Tool: Bnd-0.0.357
 Bundle-Name: mxGWTUtils
 Created-By: Apache Maven Bundle Plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Build-Jdk: 1.6.0_22
+Build-Jdk: 1.6.0_20
 Bundle-Version: 0.0.2
-Bnd-LastModified: 1305690390976
+Bnd-LastModified: 1305779698513
 Bundle-ManifestVersion: 2
-Import-Package: com.google.common.base,mx.gwtutils,org.hamcrest;versio
- n="0.0",org.junit
+Import-Package: com.google.common.base,
+ de.mxro.thrd.hamcrest,
+ mx.gwtutils,
+ org.hamcrest,
+ org.hamcrest.core,
+ org.junit
 Bundle-SymbolicName: mxGWTUtils
 
