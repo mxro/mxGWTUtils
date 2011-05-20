@@ -11,7 +11,7 @@
 		
 		<module.draftCompile>true</module.draftCompile>
 		<module.importedPackages>
-		    org.junit,de.mxro.thrd.hamcrest,*
+		    org.junit,org.hamcrest,org.hamcrest.core,de.mxro.thrd.hamcrest,*
 		</module.importedPackages>
 		<module.exportedPackages>!mx.gwtutils.internal*,mx.gwtutils*
 		</module.exportedPackages>
