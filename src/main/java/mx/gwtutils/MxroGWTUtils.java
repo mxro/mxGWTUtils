@@ -8,7 +8,7 @@ import com.google.common.base.Preconditions;
 
 
 public class MxroGWTUtils {
-	public static String removeFirstElement(String s, String separator) {
+	public static String removeFirstElement(final String s, final String separator) {
 		final String[] list = s.split(separator);
 		if (list.length == 0) {
 			//UserError.singelton.log("mxro.Utils: String used for removeFirstElement() is empty.", UserError.Priority.NORMAL);
@@ -38,8 +38,8 @@ public class MxroGWTUtils {
 	 * @see #getSimpleName(String)
 	 *
 	 */
-	public static String getSimpleName(String forName, int maxCharacters) {
-		String name = getSimpleName(forName);
+	public static String getSimpleName(final String forName, final int maxCharacters) {
+		final String name = getSimpleName(forName);
 		if (name.length() > maxCharacters) return name.substring(0, maxCharacters);
 		return name;
 	}
@@ -53,7 +53,7 @@ public class MxroGWTUtils {
 	 * @param forName
 	 * @return
 	 */
-	public static String getSimpleName(String forName) {
+	public static String getSimpleName(final String forName) {
 		final String n = forName;
 		if (n.length() > 0) {
 			String simple="";
@@ -74,12 +74,12 @@ public class MxroGWTUtils {
 			return n;
 	}
 
-	public static int length(String s, String separator) {
+	public static int length(final String s, final String separator) {
 		final String[] list = s.split(separator);
 		return list.length;
 	}
 
-	public static String removeLastElement(String s, String separator) {
+	public static String removeLastElement(final String s, final String separator) {
 		if (s.equals("")) return null;
 		
 		final String[] list = s.split(separator);
@@ -93,14 +93,14 @@ public class MxroGWTUtils {
 		return res;
 	}
 
-	public static String lastElement(String s, String separator) {
+	public static String lastElement(final String s, final String separator) {
 		final String[] list = s.split(separator);
 		if (list.length <= 0)
 			return null;
 		return list[list.length-1];
 	}
 
-	public static String firstElement(String s, String separator) {
+	public static String firstElement(final String s, final String separator) {
 		final String[] list = s.split(separator);
 		if (list.length == 0) {
 			//UserError.singelton.log("mxro.Utils: String used for firstElement() is empty.", UserError.Priority.NORMAL);
@@ -109,7 +109,7 @@ public class MxroGWTUtils {
 		return list[0];
 	}
 
-	public static String nthElement(String s, String separator, int index) {
+	public static String nthElement(final String s, final String separator, final int index) {
 		final String[] list = s.split(separator);
 		if (list.length <= 0)
 			return null;
@@ -118,16 +118,16 @@ public class MxroGWTUtils {
 		return list[list.length-1];
 	}
 
-	public static String getExtension(String path) {
+	public static String getExtension(final String path) {
 		final int dotPos = path.lastIndexOf(".");
 		if (dotPos>0)
 			return path.substring(dotPos+1);
 		return "";
 	}
 
-	public static String getClassSimpleName(Class<?> clz) {
-		String name = clz.getName();
-		int endCutOff = name.length();
+	public static String getClassSimpleName(final Class<?> clz) {
+		final String name = clz.getName();
+		final int endCutOff = name.length();
 		int beginCutOff = name.lastIndexOf(".")+1;
 		
 		if (beginCutOff == -1) beginCutOff = 1;
@@ -148,7 +148,7 @@ public class MxroGWTUtils {
 	    final String filename;
 	
 	    // Remove the path up to the filename.
-	    int lastSeparatorIndex = works.replaceAll("\\\\", "/").lastIndexOf(separator);
+	    final int lastSeparatorIndex = works.replaceAll("\\\\", "/").lastIndexOf(separator);
 	    if (lastSeparatorIndex == -1) {
 	        filename = s;
 	    } else {
@@ -156,42 +156,42 @@ public class MxroGWTUtils {
 	    }
 	
 	    // Remove the extension.
-	    int extensionIndex = filename.lastIndexOf(".");
+	    final int extensionIndex = filename.lastIndexOf(".");
 	    if (extensionIndex == -1)
 	        return s;
 	
 	    return s.substring(0, lastSeparatorIndex+1) + filename.substring(0, extensionIndex);
 	}
 
-	public static <GPEntry> List<GPEntry> flip(List<GPEntry> list) {
-		List<GPEntry> flipped = new Vector<GPEntry>();
-		for (GPEntry entry : list) {
+	public static <GPEntry> List<GPEntry> flip(final List<GPEntry> list) {
+		final List<GPEntry> flipped = new Vector<GPEntry>();
+		for (final GPEntry entry : list) {
 			flipped.add(0, entry);
 		}
 		return flipped;
 	}
 
-	public static void checkUri(String uri) {
+	public static void checkUri(final String uri) {
 		Preconditions.checkNotNull(uri, "Uri cannot be null.");
 		if (uri.equals("")) Preconditions.checkArgument(false, "Uri cannot be empty.");
 		
 	}
 	
-	public static String assertSlash(String ofString) {
+	public static String assertSlash(final String ofString) {
 		if (ofString.endsWith("/")) return ofString;
 		
 		return ofString.concat("/");
 			
 	}
 
-	public static <GPType> List<GPType> asList(GPType node) {
-		List<GPType> list = new Vector<GPType>();
+	public static <GPType> List<GPType> asList(final GPType node) {
+		final List<GPType> list = new Vector<GPType>();
 		list.add(node);
 		return list;
 	}
 
-	public static <GPType> List<GPType> asList(GPType node1, GPType node2) {
-		List<GPType> list = new Vector<GPType>();
+	public static <GPType> List<GPType> asList(final GPType node1, final GPType node2) {
+		final List<GPType> list = new Vector<GPType>();
 		list.add(node1);
 		list.add(node2);
 		return list;
