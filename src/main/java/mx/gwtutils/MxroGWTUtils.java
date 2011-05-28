@@ -8,6 +8,23 @@ import com.google.common.base.Preconditions;
 
 
 public class MxroGWTUtils {
+	
+	
+	public static String cloneString(final String toClone) {
+		if (toClone == null) {
+			return null;
+		}
+		if (toClone.isEmpty()) {
+			return new String("").concat(new String (""));
+		}
+		
+		if (toClone.length() == 1) {
+			return String.valueOf(toClone.charAt(0));
+		}
+		
+		return toClone.substring(0, 1) + toClone.substring(1);
+	}
+	
 	public static String removeFirstElement(final String s, final String separator) {
 		final String[] list = s.split(separator);
 		if (list.length == 0) {

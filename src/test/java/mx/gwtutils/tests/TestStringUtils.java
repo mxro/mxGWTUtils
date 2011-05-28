@@ -7,6 +7,13 @@ import org.junit.Test;
 
 public class TestStringUtils {
 	
+	@Test
+	public void test_string_cloner() {
+		final String toStart = "Node 1";
+		Assert.assertEquals(toStart, MxroGWTUtils.cloneString(toStart));
+		Assert.assertFalse(toStart == MxroGWTUtils.cloneString(toStart));
+	}
+	
 	@Test public void test_get_simple_class_name() {
 		Assert.assertEquals("String", MxroGWTUtils.getClassSimpleName(String.class));
 	}
