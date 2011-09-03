@@ -6,7 +6,7 @@ import mx.gwtutils.ThreadSpace.Step;
  * A simple abstraction for a number of concurrency operations. These are
  * supported by GWT applications as well as by JSE applications.
  * 
- * @author mroh004
+ * @author Max Rohde
  * 
  */
 public abstract class ConcurrencyEngine {
