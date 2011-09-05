@@ -1,6 +1,7 @@
-package mx.gwtutils.tests;
+package mx.gwtutils;
 
 import mx.gwtutils.ThreadSpace.Step;
+import mx.gwtutils.tests.AbstractTimer;
 
 /**
  * A simple abstraction for a number of concurrency operations. These are
@@ -10,9 +11,23 @@ import mx.gwtutils.ThreadSpace.Step;
  * 
  */
 public abstract class ConcurrencyEngine {
-
+	
+	public abstract void yield();
+	
 	public abstract AbstractTimer newTimer(Runnable timer);
 
+	public void sleep(final int millisec, final Step after) {
+		final AbstractTimer t = newTimer(new Runnable() {
+
+			@Override
+			public void run() {
+				after.process();
+			}
+
+		});
+		t.schedule(millisec);
+	}
+	
 	/**
 	 * Enters the thread into a loop, which is executed for the specified
 	 * duration. If the time specified in the duration is passed, an exception
@@ -33,15 +48,5 @@ public abstract class ConcurrencyEngine {
 	 */
 	public abstract void finishTest();
 
-	public void sleep(final int millisec, final Step after) {
-		final AbstractTimer t = newTimer(new Runnable() {
-
-			@Override
-			public void run() {
-				after.process();
-			}
-
-		});
-		t.schedule(millisec);
-	}
+	
 }
