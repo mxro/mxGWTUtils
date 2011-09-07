@@ -16,7 +16,14 @@ public abstract class ConcurrencyEngine {
 	
 	public abstract AbstractTimer newTimer(Runnable timer);
 
+	/**
+	 * 
+	 * @param millisec For GWT, this needs to be a positive value greater than 0.
+	 * @param after
+	 */
 	public void sleep(final int millisec, final Step after) {
+		assert millisec > 0 : "Millisec should be greater than 0.";
+		
 		final AbstractTimer t = newTimer(new Runnable() {
 
 			@Override
