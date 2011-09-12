@@ -5,10 +5,8 @@
 	<artifactId>mxGWTUtils</artifactId>
 	<version>0.0.3-SNAPSHOT</version>
 	
-	<properties>
-		
+	<properties>		
 		<module.gwtVersion>2.2.0</module.gwtVersion>
-		
 		<module.draftCompile>true</module.draftCompile>
 		<module.importedPackages>
 		    org.junit,de.mxro.thrd.hamcrest,de.mxro.thrd.hamcrest.core,
