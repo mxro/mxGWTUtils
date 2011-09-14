@@ -4,16 +4,16 @@
 	<groupId>de.mxro.gtwutils</groupId>
 	<artifactId>mxGWTUtils</artifactId>
 	<version>0.0.4-SNAPSHOT</version>
-	
-	<properties>		
+
+	<properties>
 		<module.gwtVersion>2.2.0</module.gwtVersion>
 		<module.draftCompile>true</module.draftCompile>
 		<module.importedPackages>
-		    org.junit,de.mxro.thrd.hamcrest,de.mxro.thrd.hamcrest.core,
-		    org.hamcrest,
- org.hamcrest.core,
- org.hamcrest.internal,
-		    *
+			org.junit,de.mxro.thrd.hamcrest,de.mxro.thrd.hamcrest.core,
+			org.hamcrest,
+			org.hamcrest.core,
+			org.hamcrest.internal,
+			!*
 		</module.importedPackages>
 		<module.exportedPackages>!mx.gwtutils.internal*,mx.gwtutils*
 		</module.exportedPackages>
@@ -21,65 +21,61 @@
 		</module.serviceDefinitions>
 	</properties>
 
-	<!--  Dependent Modules -->
+	<!-- Dependent Modules -->
 	<dependencies>
-	
-	
-	<dependency>
-	<groupId>de.mxro.thrd.guavagwt</groupId>
-	<artifactId>thrdGuavaGwt</artifactId>
-	<version>[0.0.1,)</version>
-	</dependency>
-	
+
+
+		<dependency>
+			<groupId>de.mxro.thrd.guavagwt</groupId>
+			<artifactId>thrdGuavaGwt</artifactId>
+			<version>[0.0.1,)</version>
+		</dependency>
+
 		<!-- only for gwt maven plugin!!! -->
 		<dependency>
-					<groupId>com.google.gwt</groupId>
-					<artifactId>gwt-user</artifactId>
-					<version>${module.gwtVersion}</version>
-					<scope>provided</scope>
-				</dependency>
-				
-		
-		<!-- <dependency>
-		<groupId>de.mxro.thrd.gwtuser</groupId>
-		<artifactId>thrdGWTUser</artifactId>
-		<version>[0.0.2,)</version>
-		 <scope>provided</scope>
-		</dependency> -->
-	
-	<dependency>
-	   <groupId>de.mxro.thrd.hamcrestgwt</groupId>   
-		<artifactId>thrdHamcrestGWT</artifactId>              
-		<version>[0.0.3,)</version>
-		
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>${module.gwtVersion}</version>
+			<scope>provided</scope>
 		</dependency>
-		
+
+
+		<!-- <dependency> <groupId>de.mxro.thrd.gwtuser</groupId> <artifactId>thrdGWTUser</artifactId> 
+			<version>[0.0.2,)</version> <scope>provided</scope> </dependency> -->
+
 		<dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.7</version>
-            <scope>test</scope>
-        </dependency>
-        
-        <dependency>
-    <groupId>log4j</groupId>
-    <artifactId>log4j</artifactId>
-    <version>1.2.16</version>
-    <scope>test</scope>
-</dependency>
-        
-		
-		
+			<groupId>de.mxro.thrd.hamcrestgwt</groupId>
+			<artifactId>thrdHamcrestGWT</artifactId>
+			<version>[0.0.3,)</version>
+
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.7</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.16</version>
+			<scope>test</scope>
+		</dependency>
+
+
+
 	</dependencies>
 
 
-	<!-- XXXXXXXXXXXXXX    Maven declarations XXXXXXXXXXXXXXXXXX -->
+	<!-- XXXXXXXXXXXXXX Maven declarations XXXXXXXXXXXXXXXXXX -->
 
 	<modelVersion>4.0.0</modelVersion>
 	<name>${project.artifactId}</name>
 	<packaging>bundle</packaging>
 	<build>
-		
+
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -89,9 +85,9 @@
 				</configuration>
 			</plugin>
 
-			
+
 			<!-- FOR BUNDLE MANAGEMENT -->
-			<!--  The Maven bundle plugin generates Meta-data required for OSGi  -->
+			<!-- The Maven bundle plugin generates Meta-data required for OSGi -->
 
 			<plugin>
 				<groupId>org.apache.felix</groupId>
@@ -104,30 +100,49 @@
 						<Bundle-Version>${project.version}</Bundle-Version>
 						<Import-Package>${module.importedPackages}</Import-Package>
 						<Export-Package>${module.exportedPackages}</Export-Package>
-						<Service-Component>${module.serviceDefinitions}</Service-Component>
-						<Bundle-RequiredExecutionEnvironment>JavaSE-1.6</Bundle-RequiredExecutionEnvironment>
+						<Service-Component>${module.serviceDefinitions}
+						</Service-Component>
+						<Bundle-RequiredExecutionEnvironment>JavaSE-1.6
+						</Bundle-RequiredExecutionEnvironment>
 					</instructions>
 				</configuration>
 			</plugin>
 
-
-<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
-			<!--  For GWT -->
+<plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-eclipse-plugin</artifactId>
+        <version>2.8</version>
+        <configuration>
+        <pde>true</pde>
+         </configuration>
+        <!-- 
+          <sourceExcludes>
+            <sourceExclude>**/.svn/**</sourceExclude>
+          </sourceExcludes>
+          <sourceIncludes>
+            <sourceInclude>**/*.myExtension</sourceInclude>
+          </sourceIncludes>
+        </configuration>-->
+      </plugin>
+      
+      
+			<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+			<!-- For GWT -->
 			<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>gwt-maven-plugin</artifactId>		
+				<artifactId>gwt-maven-plugin</artifactId>
 				<version>2.2.0</version>
 				<configuration>
-					
+
 					<draftCompile>${module.draftCompile}</draftCompile>
 					<logLevel>INFO</logLevel>
-					<!--  -->
+					<!-- -->
 					<validateOnly>true</validateOnly>
 					<gwtVersion>${module.gwtVersion}</gwtVersion>
-					
-					
-					 <webappDirectory>${basedir}/src/main/webapp</webappDirectory>
+
+
+					<webappDirectory>${basedir}/src/main/webapp</webappDirectory>
 
 				</configuration>
 				<executions>
@@ -141,12 +156,10 @@
 				</executions>
 			</plugin>
 
-		    <!-- FOR MAVEN ECLIPSE PLUGIN -->
-			<!--
-				Dependency Plugin used to copy the dependency JARs into the root
-				project folder. There the Maven eclipse plugin will add them to the
-				classpath of PDE projects.
-			-->
+			<!-- FOR MAVEN ECLIPSE PLUGIN -->
+			<!-- Dependency Plugin used to copy the dependency JARs into the root 
+				project folder. There the Maven eclipse plugin will add them to the classpath 
+				of PDE projects. -->
 			<plugin>
 				<artifactId>maven-dependency-plugin</artifactId>
 				<executions>
@@ -166,9 +179,7 @@
 				</executions>
 			</plugin>
 
-			<!--
-				Cleanup necessary because of PDE tweaks, clear the project directory
-			-->
+			<!-- Cleanup necessary because of PDE tweaks, clear the project directory -->
 			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
 				<version>2.3</version>
@@ -185,10 +196,8 @@
 				</configuration>
 			</plugin>
 
-			<!--
-				Keep the MANIFEST.MF used by eclipse in sync with the MANIFEST.MF
-				created by the maven bundle plugin
-			-->
+			<!-- Keep the MANIFEST.MF used by eclipse in sync with the MANIFEST.MF 
+				created by the maven bundle plugin -->
 			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<executions>
@@ -208,11 +217,11 @@
 			</plugin>
 
 		</plugins>
-		
+
 		<!-- RESOURCES -->
 		<resources>
 			<!-- Required to be valid GWT Library (requires *.java files in jar) -->
-		
+
 			<resource>
 				<directory>src/main/java</directory>
 				<includes>
@@ -220,15 +229,12 @@
 					<include>**/*.gwt.xml</include>
 				</includes>
 			</resource>
-		
-			<!--
-				This entry makes sure that resources, which lie in the same package
-				as Java classes, are copied into the target. Often external
-				libraries require resources, which are loaded using
-				Class.getResource or Class.getResourceAsStream and which are in a
-				subpackage of the class. For instance, the NetBeans template for the
-				Swing Application Framework does so.
-			-->
+
+			<!-- This entry makes sure that resources, which lie in the same package 
+				as Java classes, are copied into the target. Often external libraries require 
+				resources, which are loaded using Class.getResource or Class.getResourceAsStream 
+				and which are in a subpackage of the class. For instance, the NetBeans template 
+				for the Swing Application Framework does so. -->
 			<resource>
 				<filtering>false</filtering>
 				<directory>src/main/java</directory>
@@ -239,10 +245,8 @@
 					<exclude>**/*.java</exclude>
 				</excludes>
 			</resource>
-			<!--
-				This entry makes sure component definitions for OSGi declarative
-				services are copied into the destination
-			-->
+			<!-- This entry makes sure component definitions for OSGi declarative 
+				services are copied into the destination -->
 			<resource>
 				<targetPath>OSGI-INF</targetPath>
 				<filtering>false</filtering>
@@ -251,10 +255,8 @@
 					<include>**</include>
 				</includes>
 			</resource>
-			<!--
-				I really do not know why know a manual entry for src/main/resources
-				is necessary? It should be included following the Maven convention.
-			-->
+			<!-- I really do not know why know a manual entry for src/main/resources 
+				is necessary? It should be included following the Maven convention. -->
 			<resource>
 				<filtering>false</filtering>
 				<directory>src/main/resources</directory>
@@ -262,7 +264,7 @@
 					<include>**</include>
 				</includes>
 			</resource>
-			
+
 		</resources>
 	</build>
 
