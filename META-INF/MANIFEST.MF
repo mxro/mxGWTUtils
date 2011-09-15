@@ -11,8 +11,12 @@ Build-Jdk: 1.7.0
 Bundle-Version: 0.0.4.SNAPSHOT
 Bnd-LastModified: 1315974500301
 Bundle-ManifestVersion: 2
-Import-Package: de.mxro.thrd.hamcrest;version="[0.0,1)",de.mxro.thrd.h
- amcrest.core;version="[0.0,1)",org.hamcrest,org.hamcrest.core,org.ham
- crest.internal,org.junit
+Import-Package: com.google.common.base,
+ de.mxro.thrd.hamcrest;version="[0.0,1)",
+ de.mxro.thrd.hamcrest.core;version="[0.0,1)",
+ org.hamcrest,
+ org.hamcrest.core,
+ org.hamcrest.internal,
+ org.junit
 Bundle-SymbolicName: mxGWTUtils
 
