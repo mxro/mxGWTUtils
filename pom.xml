@@ -3,7 +3,7 @@
 <project>
 	<groupId>de.mxro.gtwutils</groupId>
 	<artifactId>mxGWTUtils</artifactId>
-	<version>0.0.4</version>
+	<version>0.0.5-SNAPSHOT</version>
 
 	<properties>
 		<module.gwtVersion>2.2.0</module.gwtVersion>
