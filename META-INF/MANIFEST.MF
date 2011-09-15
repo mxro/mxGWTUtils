@@ -1,22 +1,18 @@
 Manifest-Version: 1.0
 Export-Package: mx.gwtutils;uses:="mx.gwtutils.tests",mx.gwtutils.test
  s
-Ignore-Package: java.util,com.google.common.base,java.lang
+Ignore-Package: java.util,java.lang
 Built-By: mroh004
 Tool: Bnd-1.15.0
 Bundle-Name: mxGWTUtils
 Created-By: Apache Maven Bundle Plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Build-Jdk: 1.7.0
+Build-Jdk: 1.6.0_27
 Bundle-Version: 0.0.4.SNAPSHOT
-Bnd-LastModified: 1315974500301
+Bnd-LastModified: 1316127852122
 Bundle-ManifestVersion: 2
-Import-Package: com.google.common.base,
- de.mxro.thrd.hamcrest;version="[0.0,1)",
- de.mxro.thrd.hamcrest.core;version="[0.0,1)",
- org.hamcrest,
- org.hamcrest.core,
- org.hamcrest.internal,
- org.junit
+Import-Package: de.mxro.thrd.hamcrest;version="[0.0,1)",de.mxro.thrd.h
+ amcrest.core;version="[0.0,1)",org.hamcrest,org.hamcrest.core,org.ham
+ crest.internal,org.junit
 Bundle-SymbolicName: mxGWTUtils
 

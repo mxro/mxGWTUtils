@@ -3,8 +3,6 @@ package mx.gwtutils;
 import java.util.List;
 import java.util.Vector;
 
-import com.google.common.base.Preconditions;
-
 
 
 public class MxroGWTUtils {
@@ -189,9 +187,8 @@ public class MxroGWTUtils {
 	}
 
 	public static void checkUri(final String uri) {
-		Preconditions.checkNotNull(uri, "Uri cannot be null.");
-		if (uri.equals("")) Preconditions.checkArgument(false, "Uri cannot be empty.");
-		
+		assert uri != null : "Uri cannot be null.";
+		assert !uri.equals("") : "Uri cannot be empty";
 	}
 	
 	public static String assertSlash(final String ofString) {
