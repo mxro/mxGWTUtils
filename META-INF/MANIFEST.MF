@@ -8,8 +8,8 @@ Bundle-Name: mxGWTUtils
 Created-By: Apache Maven Bundle Plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Build-Jdk: 1.6.0_27
-Bundle-Version: 0.0.4.SNAPSHOT
-Bnd-LastModified: 1316127852122
+Bundle-Version: 0.0.4
+Bnd-LastModified: 1316130779833
 Bundle-ManifestVersion: 2
 Import-Package: de.mxro.thrd.hamcrest;version="[0.0,1)",de.mxro.thrd.h
  amcrest.core;version="[0.0,1)",org.hamcrest,org.hamcrest.core,org.ham
