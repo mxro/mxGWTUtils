@@ -16,6 +16,10 @@ public abstract class ConcurrencyEngine {
 	
 	public abstract AbstractTimer newTimer(Runnable timer);
 
+	public void runAsync(final Step step) {
+		sleep(1, step);
+	}
+	
 	/**
 	 * 
 	 * @param millisec For GWT, this needs to be a positive value greater than 0.
