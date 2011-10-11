@@ -1,6 +1,7 @@
 Manifest-Version: 1.0
-Export-Package: mx.gwtutils;uses:="mx.gwtutils.tests",mx.gwtutils.test
- s
+Export-Package: mx.gwtutils;uses:="mx.gwtutils.tests",
+ mx.gwtutils.async,
+ mx.gwtutils.tests
 Ignore-Package: java.util,java.lang
 Built-By: mroh004
 Tool: Bnd-1.15.0
