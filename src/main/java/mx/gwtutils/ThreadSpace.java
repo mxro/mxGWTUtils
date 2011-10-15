@@ -39,7 +39,7 @@ public class ThreadSpace {
 	public synchronized void processSteps() {
 		// this is not very thread safe but should
 		// be good enough for JavaScript
-		// for Java Threads, the synchronized flag should work.
+		// for Java Threads, the synchronized flag for the method should work.
 
 		if (processing) {
 			return;
