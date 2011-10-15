@@ -5,7 +5,8 @@ import java.util.List;
 import mx.gwtutils.ListCallback;
 import mx.gwtutils.internal.async.PendingMessageEntry;
 
-class SortedCallback<GMessage, GResponse> implements
+@Deprecated
+public class SortedCallback<GMessage, GResponse> implements
 		ListCallback<GResponse> {
 
 	final List<GMessage> messagesCb;
@@ -14,6 +15,7 @@ class SortedCallback<GMessage, GResponse> implements
 
 	@Override
 	public void onSuccess(final List<GResponse> responses) {
+		
 		final int position = manager.getEntryPosition(messagesCb);
 
 		assert position >= 0 : "Invalid state in callback lineraizer. Messages ["
@@ -21,7 +23,7 @@ class SortedCallback<GMessage, GResponse> implements
 
 		final PendingMessageEntry<GMessage, GResponse> e = manager
 				.getEntry(position);
-
+		
 		e.responses = responses;
 		e.callback = callback;
 		e.isSuccess = true;
