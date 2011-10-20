@@ -17,7 +17,7 @@ public abstract class ConcurrencyEngine {
 	public abstract AbstractTimer newTimer(Runnable timer);
 
 	public interface Verifyer {
-		public void verify();
+		public void join();
 	}
 	
 	public Verifyer runAsync(final Step step) {
@@ -25,7 +25,7 @@ public abstract class ConcurrencyEngine {
 		return new Verifyer() {
 
 			@Override
-			public void verify() {
+			public void join() {
 				
 			}
 			
