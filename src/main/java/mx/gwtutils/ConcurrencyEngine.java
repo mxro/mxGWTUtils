@@ -16,8 +16,20 @@ public abstract class ConcurrencyEngine {
 	
 	public abstract AbstractTimer newTimer(Runnable timer);
 
-	public void runAsync(final Step step) {
+	public interface Verifyer {
+		public void verify();
+	}
+	
+	public Verifyer runAsync(final Step step) {
 		sleep(1, step);
+		return new Verifyer() {
+
+			@Override
+			public void verify() {
+				
+			}
+			
+		};
 	}
 	
 	/**
