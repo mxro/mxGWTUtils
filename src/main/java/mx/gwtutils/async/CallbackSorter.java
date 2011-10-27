@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-import mx.gwtutils.ListCallback;
 import mx.gwtutils.ThreadSpace;
 import mx.gwtutils.ThreadSpace.Step;
 import mx.gwtutils.internal.async.PendingMessageEntry;

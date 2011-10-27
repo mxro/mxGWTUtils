@@ -1,8 +1,10 @@
-package mx.gwtutils;
+package mx.gwtutils.async;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import mx.gwtutils.MxroGWTUtils;
 
 /**
  * This utility class supports in writing Java in a more asynchronous style.
@@ -16,7 +18,7 @@ import java.util.Map;
  * @param <GInput>
  * @param <GOutput>
  */
-public class CallbackJoiner<GInput, GOutput> {
+public class OrderedCallbackJoiner<GInput, GOutput> {
 	final Map<Integer, GOutput> responseMap;
 	final List<GInput> messages;
 	final int expectedSize;
@@ -45,7 +47,7 @@ public class CallbackJoiner<GInput, GOutput> {
 		};
 	}
 
-	public CallbackJoiner(final List<GInput> messages,
+	public OrderedCallbackJoiner(final List<GInput> messages,
 			final ListCallback<GOutput> callback) {
 		super();
 		this.messages = messages;

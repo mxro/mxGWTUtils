@@ -1,4 +1,4 @@
-package mx.gwtutils;
+package mx.gwtutils.async;
 
 import java.util.List;
 

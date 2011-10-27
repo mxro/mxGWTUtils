@@ -1,4 +1,4 @@
-package mx.gwtutils;
+package mx.gwtutils.async;
 
 public interface SuccessFailCallback<GError> {
 	public void onSuccess();

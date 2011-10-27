@@ -2,7 +2,6 @@ package mx.gwtutils.async;
 
 import java.util.List;
 
-import mx.gwtutils.ListCallback;
 import mx.gwtutils.internal.async.PendingMessageEntry;
 
 @Deprecated
