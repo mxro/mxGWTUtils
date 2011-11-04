@@ -201,7 +201,7 @@ public class MxroGWTUtils {
 	}
 
 	public static <GPType> List<GPType> asList(final GPType node) {
-		final List<GPType> list = new Vector<GPType>();
+		final List<GPType> list = new Vector<GPType>(1);
 		list.add(node);
 		return list;
 	}
