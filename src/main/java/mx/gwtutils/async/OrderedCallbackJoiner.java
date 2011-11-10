@@ -1,5 +1,6 @@
 package mx.gwtutils.async;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,7 +52,8 @@ public class OrderedCallbackJoiner<GInput, GOutput> {
 			final ListCallback<GOutput> callback) {
 		super();
 		this.messages = messages;
-		this.responseMap = new HashMap<Integer, GOutput>();
+		this.responseMap = Collections
+				.synchronizedMap(new HashMap<Integer, GOutput>());
 		expectedSize = messages.size();
 		this.callback = callback;
 	}

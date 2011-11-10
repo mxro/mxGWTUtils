@@ -71,5 +71,10 @@ public abstract class ConcurrencyEngine {
 	 */
 	public abstract void finishTest();
 
+	/**
+	 * If there is a currently delayed test case, this method will fail this test.
+	 * @param t
+	 */
+	public abstract void failTest(Throwable t);
 	
 }
