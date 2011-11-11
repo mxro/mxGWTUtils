@@ -24,7 +24,7 @@ public class FindLongestKeyMap<GType> {
 		GType longest=null;
 		for (final Entry<String, GType> e:map.entrySet()) {
 			final int currentLenght = e.getKey().length();
-			if (longestLenght < currentLenght && e.getKey().startsWith(startingWith)) {
+			if (longestLenght < currentLenght && startingWith.startsWith(e.getKey())) {
 				longest = e.getValue();
 				longestLenght = currentLenght;
 			}
