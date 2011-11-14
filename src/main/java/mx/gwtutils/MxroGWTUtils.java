@@ -1,69 +1,71 @@
 package mx.gwtutils;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
-
-
 public class MxroGWTUtils {
-	
-	
+
 	public static String cloneString(final String toClone) {
 		if (toClone == null) {
 			return null;
 		}
 		if (toClone.isEmpty()) {
-			return new String("").concat(new String (""));
+			return new String("").concat(new String(""));
 		}
-		
+
 		if (toClone.length() == 1) {
 			return String.valueOf(toClone.charAt(0));
 		}
-		
+
 		return toClone.substring(0, 1) + toClone.substring(1);
 	}
-	
-	public static String removeFirstElement(final String s, final String separator) {
+
+	public static String removeFirstElement(final String s,
+			final String separator) {
 		final String[] list = s.split(separator);
 		if (list.length == 0) {
-			//UserError.singelton.log("mxro.Utils: String used for removeFirstElement() is empty.", UserError.Priority.NORMAL);
+			// UserError.singelton.log("mxro.Utils: String used for removeFirstElement() is empty.",
+			// UserError.Priority.NORMAL);
 			return null;
 		}
 		if (list.length == 1)
 			return "";
 		if (list.length == 2)
 			return list[1];
-		String res=list[1];
-		for (int i=2;i<list.length;i++) {
-			res += "/"+list[i];
+		String res = list[1];
+		for (int i = 2; i < list.length; i++) {
+			res += "/" + list[i];
 		}
-		
+
 		return res;
 	}
 
-	public static char[] allowedCharacters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
-	        'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 
-	        's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-	        '_', '-', '.',
-	        '1', '2', '3', '4', '5', '6', '7', '8', '9',
-	        '0'	                                      
-	};
+	public static char[] allowedCharacters = { 'a', 'b', 'c', 'd', 'e', 'f',
+			'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
+			't', 'u', 'v', 'w', 'x', 'y', 'z', '_', '-', '.', '1', '2', '3',
+			'4', '5', '6', '7', '8', '9', '0' };
 
 	/**
 	 * @see #getSimpleName(String)
-	 *
+	 * 
 	 */
-	public static String getSimpleName(final String forName, final int maxCharacters) {
+	public static String getSimpleName(final String forName,
+			final int maxCharacters) {
 		final String name = getSimpleName(forName);
-		if (name.length() > maxCharacters) return name.substring(0, maxCharacters);
+		if (name.length() > maxCharacters)
+			return name.substring(0, maxCharacters);
 		return name;
 	}
-	
+
 	/**
-	 * Simplifies any given string and makes it conformant as file name for
-	 * an URI. Illegal characters are replaced by an '_'.<br/><br />
+	 * Simplifies any given string and makes it conformant as file name for an
+	 * URI. Illegal characters are replaced by an '_'.<br/>
+	 * <br />
 	 * For legal characters, see {@link #allowedCharacters}:<br/>
 	 * {@value #allowedCharacters}
 	 * 
@@ -73,12 +75,12 @@ public class MxroGWTUtils {
 	public static String getSimpleName(final String forName) {
 		final String n = forName;
 		if (n.length() > 0) {
-			String simple="";
-			for (int i = 0; i<n.length(); i++) {
+			String simple = "";
+			for (int i = 0; i < n.length(); i++) {
 				boolean found = false;
 				for (final char element : allowedCharacters) {
-					found = found || n.charAt(i) == element ||
-					n.charAt(i) == Character.toUpperCase(element);
+					found = found || n.charAt(i) == element
+							|| n.charAt(i) == Character.toUpperCase(element);
 				}
 				if (found) {
 					simple = simple + n.charAt(i);
@@ -96,17 +98,19 @@ public class MxroGWTUtils {
 		return list.length;
 	}
 
-	public static String removeLastElement(final String s, final String separator) {
-		if (s.equals("")) return null;
-		
+	public static String removeLastElement(final String s,
+			final String separator) {
+		if (s.equals(""))
+			return null;
+
 		final String[] list = s.split(separator);
 		if (list.length <= 0)
 			return null;
-		String res = ( s.charAt(0)=='/' ? "/" : "" );
-		for (int i=0;i<list.length-1;i++) {
-			res += list[i]+"/";
+		String res = (s.charAt(0) == '/' ? "/" : "");
+		for (int i = 0; i < list.length - 1; i++) {
+			res += list[i] + "/";
 		}
-		
+
 		return res;
 	}
 
@@ -114,70 +118,77 @@ public class MxroGWTUtils {
 		final String[] list = s.split(separator);
 		if (list.length <= 0)
 			return null;
-		return list[list.length-1];
+		return list[list.length - 1];
 	}
 
 	public static String firstElement(final String s, final String separator) {
 		final String[] list = s.split(separator);
 		if (list.length == 0) {
-			//UserError.singelton.log("mxro.Utils: String used for firstElement() is empty.", UserError.Priority.NORMAL);
+			// UserError.singelton.log("mxro.Utils: String used for firstElement() is empty.",
+			// UserError.Priority.NORMAL);
 			return null;
 		}
 		return list[0];
 	}
 
-	public static String nthElement(final String s, final String separator, final int index) {
+	public static String nthElement(final String s, final String separator,
+			final int index) {
 		final String[] list = s.split(separator);
 		if (list.length <= 0)
 			return null;
 		if (index >= list.length)
-			throw new IndexOutOfBoundsException("Could not get element "+index+" in "+s);
-		return list[list.length-1];
+			throw new IndexOutOfBoundsException("Could not get element "
+					+ index + " in " + s);
+		return list[list.length - 1];
 	}
 
 	public static String getExtension(final String path) {
 		final int dotPos = path.lastIndexOf(".");
-		if (dotPos>0)
-			return path.substring(dotPos+1);
+		if (dotPos > 0)
+			return path.substring(dotPos + 1);
 		return "";
 	}
 
 	public static String getClassSimpleName(final Class<?> clz) {
 		final String name = clz.getName();
 		final int endCutOff = name.length();
-		int beginCutOff = name.lastIndexOf(".")+1;
-		
-		if (beginCutOff == -1) beginCutOff = 1;
-		
+		int beginCutOff = name.lastIndexOf(".") + 1;
+
+		if (beginCutOff == -1)
+			beginCutOff = 1;
+
 		return name.substring(beginCutOff, endCutOff);
 	}
-	
+
 	/**
-	 * from http://stackoverflow.com/questions/941272/how-do-i-trim-a-file-extension-from-a-string-in-java
+	 * from http://stackoverflow.com/questions/941272/how-do-i-trim-a-file-
+	 * extension-from-a-string-in-java
 	 * 
 	 * @param s
 	 * @return
 	 */
 	public static String removeExtension(final String s) {
-		final String works = s+"";
-	    final String separator = "/"; //System.getProperty("file.separator");
-	    
-	    final String filename;
-	
-	    // Remove the path up to the filename.
-	    final int lastSeparatorIndex = works.replaceAll("\\\\", "/").lastIndexOf(separator);
-	    if (lastSeparatorIndex == -1) {
-	        filename = s;
-	    } else {
-	        filename = s.substring(lastSeparatorIndex + 1);
-	    }
-	
-	    // Remove the extension.
-	    final int extensionIndex = filename.lastIndexOf(".");
-	    if (extensionIndex == -1)
-	        return s;
-	
-	    return s.substring(0, lastSeparatorIndex+1) + filename.substring(0, extensionIndex);
+		final String works = s + "";
+		final String separator = "/"; // System.getProperty("file.separator");
+
+		final String filename;
+
+		// Remove the path up to the filename.
+		final int lastSeparatorIndex = works.replaceAll("\\\\", "/")
+				.lastIndexOf(separator);
+		if (lastSeparatorIndex == -1) {
+			filename = s;
+		} else {
+			filename = s.substring(lastSeparatorIndex + 1);
+		}
+
+		// Remove the extension.
+		final int extensionIndex = filename.lastIndexOf(".");
+		if (extensionIndex == -1)
+			return s;
+
+		return s.substring(0, lastSeparatorIndex + 1)
+				+ filename.substring(0, extensionIndex);
 	}
 
 	public static <GPEntry> List<GPEntry> flip(final List<GPEntry> list) {
@@ -192,12 +203,13 @@ public class MxroGWTUtils {
 		assert uri != null : "Uri cannot be null.";
 		assert !uri.equals("") : "Uri cannot be empty";
 	}
-	
+
 	public static String assertSlash(final String ofString) {
-		if (ofString.endsWith("/")) return ofString;
-		
+		if (ofString.endsWith("/"))
+			return ofString;
+
 		return ofString.concat("/");
-			
+
 	}
 
 	public static <GPType> List<GPType> asList(final GPType node) {
@@ -206,7 +218,8 @@ public class MxroGWTUtils {
 		return list;
 	}
 
-	public static <GPType> List<GPType> asList(final GPType node1, final GPType node2) {
+	public static <GPType> List<GPType> asList(final GPType node1,
+			final GPType node2) {
 		final List<GPType> list = new Vector<GPType>();
 		list.add(node1);
 		list.add(node2);
@@ -218,16 +231,16 @@ public class MxroGWTUtils {
 		final List<GOutput> localResponses = new ArrayList<GOutput>();
 		for (int i = 0; i < responseMap.size(); i++) {
 			final GOutput rr = responseMap.get(Integer.valueOf(i));
-	
+
 			assert rr != null;
-	
+
 			localResponses.add(rr);
 		}
 		return localResponses;
 	}
 
-	public static <GPOutput> boolean isMapComplete(final Map<Integer, GPOutput> map,
-			final int size) {
+	public static <GPOutput> boolean isMapComplete(
+			final Map<Integer, GPOutput> map, final int size) {
 		for (int i = 0; i < size; i++) {
 			if (map.get(Integer.valueOf(i)) == null) {
 				return false;
@@ -235,8 +248,78 @@ public class MxroGWTUtils {
 		}
 		return true;
 	}
-	
-	
-	
-	
+
+	public static final boolean emptyOrNull(final String s) {
+		return (s == null) || s.isEmpty();
+	}
+
+	/**
+	 * 
+	 * Exceptions:<br/>
+	 * 
+	 * <li>Default ports will not be made part of the path. eg.
+	 * http://www.mxro.de:80/test/test1.xml?page=1&parameter=space+1#home will
+	 * return de/mxro/www/http/test/test1.xml_page_1_parameter_space_1_home and
+	 * not de/mxro/www/http/<strong>80</strong>/test/test1.
+	 * xml_page_1_parameter_space_1_home</li>
+	 * 
+	 * 
+	 */
+	public final static String getFileForURI(final String suri) {
+
+		try {
+			final URI uri = new URI(suri);
+
+			assert uri.isAbsolute() : "Cannot determine directory for node: URI must be absolute: <"
+					+ suri + ">";
+
+			// example
+			// http://www.mxro.de:80/test/test1.xml?page=1&parameter=space+1#home
+			final String scheme = uri.getScheme(); // eg <http>
+			final String host = uri.getHost(); // eg <www.mxro.de>
+			String port = String.valueOf(uri.getPort()); // eg <80>
+			if (port.equals("-1"))
+				port = "";
+			final String path = uri.getPath(); // eg </test/test1.xml>
+			final String query = uri.getQuery(); // eg <page=1>
+			final String fragment = uri.getFragment(); // eg <home>
+
+			assert !emptyOrNull(host) : "Cannot determine directory for node: host must be specified in URI: <"
+					+ suri + ">";
+
+			final StringBuffer dir = new StringBuffer();
+
+			// reverse the host eg www.mxro.de becomes de/mxro/www/
+			for (final String hostPart : flip(Arrays.asList(host.split("\\.")))) {
+				dir.append(hostPart + "/");
+			}
+
+			if (!emptyOrNull(scheme))
+				dir.append(scheme + "/");
+
+			if (!emptyOrNull(port)
+					&& !(port.equals("80") && scheme.equals("http")))
+				dir.append(port + "/");
+
+			if (!emptyOrNull(path) && path.length() > 2)
+				dir.append(path.substring(1));
+
+			if (!emptyOrNull(query))
+				dir.append("_"
+						+ query.replaceAll("=", "_").replaceAll("&", "_")
+								.replaceAll("\\+", "_"));
+
+			if (!emptyOrNull(fragment))
+				dir.append("_" + fragment);
+
+			return dir.toString();
+
+		} catch (final URISyntaxException e) {
+			throw new IllegalArgumentException(
+					"Cannot determine directory for node: no valid URI: <"
+							+ suri + ">");
+		}
+
+	}
+
 }
