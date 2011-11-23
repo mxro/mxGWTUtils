@@ -27,11 +27,11 @@
 	<dependencies>
 
 
-		<dependency>
+		<!-- <dependency>
 			<groupId>de.mxro.thrd.guavagwt</groupId>
 			<artifactId>thrdGuavaGwt</artifactId>
 			<version>[0.0.1,)</version>
-		</dependency>
+		</dependency>-->
 
 		<!-- only for gwt maven plugin!!! -->
 		<dependency>
