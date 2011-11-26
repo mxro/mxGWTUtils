@@ -40,6 +40,7 @@ public class CallbackSorter<GMessage, GResponse> {
 			}
 			i++;
 		}
+		//System.out.println("in position: "+position);
 		return position;
 	}
 
@@ -47,6 +48,10 @@ public class CallbackSorter<GMessage, GResponse> {
 		return this.sentMessages.get(position);
 	}
 
+	/**
+	 * Checks if for the message first sent to the server a response is available.
+	 * If yes, the response if forwared for the client to process.
+	 */
 	protected void attemptToExecuteCallback() {
 		if (sentMessages.size() <= 0) {
 			return;
@@ -89,6 +94,8 @@ public class CallbackSorter<GMessage, GResponse> {
 	public ListCallback<GResponse> createCallback(
 			final List<GMessage> messages,
 			final ListCallback<GResponse> callback) {
+		//System.out.println("messages sent: "+messages);
+		//System.out.println("messages sent: "+messages);
 		this.registerMessage(messages);
 
 		return new SortedCallback(messages, callback);
@@ -102,9 +109,9 @@ public class CallbackSorter<GMessage, GResponse> {
 
 		@Override
 		public void onSuccess(final List<GResponse> responses) {
-			//System.out.println("received: "+messages);
+			//System.out.println("messages response received on client: "+messages);
 			final int position = getEntryPosition(messages);
-
+			//System.out.println("position "+position);
 			assert position >= 0 : "Invalid state in callback lineraizer. Messages ["
 					+ messages + "] not registered in cache.";
 

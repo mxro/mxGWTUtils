@@ -1,9 +1,10 @@
 package mx.gwtutils.async;
 
-import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 
+import mx.gwtutils.IdentityArrayList;
 import mx.gwtutils.MxroGWTUtils;
 
 /**
@@ -50,8 +51,8 @@ public class OrderedCallbackJoiner<GInput, GOutput> {
 	public OrderedCallbackJoiner(final List<GInput> messages,
 			final ListCallback<GOutput> callback) {
 		super();
-		this.messages = messages;
-		this.responseMap = new HashMap<Integer, GOutput>(); // TODO should this map be synchronized?
+		this.messages = new IdentityArrayList<GInput>(messages);
+		this.responseMap = new IdentityHashMap<Integer, GOutput>(); // TODO should this map be synchronized?
 		expectedSize = messages.size();
 		this.callback = callback;
 	}
