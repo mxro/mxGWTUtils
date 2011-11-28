@@ -24,7 +24,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 
-
 /**
  * Helper class for testing whether a class is serializable.
  *
