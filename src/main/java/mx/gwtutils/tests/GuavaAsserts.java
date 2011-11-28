@@ -20,7 +20,13 @@ package mx.gwtutils.tests;
 import mx.gwtutils.GwtCompatible;
 import mx.gwtutils.Nullable;
 
-import org.junit.Assert;
+
+
+
+
+
+
+
 
 /**
  * Contains additional assertion methods not found in JUnit.
@@ -48,14 +54,14 @@ public final class GuavaAsserts {
       final String message, final Object lhs, final Object rhs, final boolean expectedResult) {
 
     if ((lhs == null) && (rhs == null)) {
-      Assert.assertTrue(
+      assertTrueImpl(
           "Your check is dubious...why would you expect null != null?",
           expectedResult);
       return;
     }
 
     if ((lhs == null) || (rhs == null)) {
-      Assert.assertTrue(
+      assertTrueImpl(
           "Your check is dubious...why would you expect an object "
           + "to be equal to null?", !expectedResult);
     }
@@ -73,7 +79,7 @@ public final class GuavaAsserts {
       if (message != null) {
         hashMessage += ": " + message;
       }
-      Assert.assertTrue(hashMessage, lhs.hashCode() == rhs.hashCode());
+      assertTrueImpl(hashMessage, lhs.hashCode() == rhs.hashCode());
     }
   }
 
@@ -94,8 +100,14 @@ public final class GuavaAsserts {
     return a == b || (a != null && a.equals(b));
   }
   
+  private static void assertTrueImpl(final String message, final boolean expression) {
+	  if (!expression) {
+		  failWithMessage(message, "expected true but got false");
+	  }
+  }
+  
   /**
-   * Replacement of {@link Assert#assertEquals} which provides the same error
+   * Replacement of Assert.assertEquals which provides the same error
    * message in GWT and java.
    */
   private static void assertEqualsImpl(
@@ -107,7 +119,7 @@ public final class GuavaAsserts {
   }
 
   private static void failWithMessage(final String userMessage, final String ourMessage) {
-    Assert.fail((userMessage == null)
+    new RuntimeException((userMessage == null)
         ? ourMessage
         : userMessage + ' ' + ourMessage);
   }
