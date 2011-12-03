@@ -141,8 +141,9 @@ public class MxroGWTUtils {
 
 	public static String getExtension(final String path) {
 		final int dotPos = path.lastIndexOf(".");
-		if (dotPos > 0)
+		if (dotPos > 0) {
 			return path.substring(dotPos + 1);
+		}
 		return "";
 	}
 
