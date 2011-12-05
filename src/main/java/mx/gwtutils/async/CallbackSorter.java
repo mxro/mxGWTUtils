@@ -57,7 +57,7 @@ public class CallbackSorter<GMessage, GResponse> {
 	 * Checks if for the message first sent to the server a response is available.
 	 * If yes, the response if forwared for the client to process.
 	 */
-	protected void attemptToExecuteCallback() {
+	void attemptToExecuteCallback() {
 		if (sentMessages.size() <= 0) {
 			return;
 		}

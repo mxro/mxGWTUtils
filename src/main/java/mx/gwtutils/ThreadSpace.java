@@ -26,7 +26,7 @@ public class ThreadSpace {
 
 	protected volatile boolean processing;
 
-	private void processStepsGuarded() {
+	protected void processStepsGuarded() {
 
 		final List<Step> stepsToBeProcessed = new ArrayList<Step>(steps.size());
 		stepsToBeProcessed.addAll(steps);

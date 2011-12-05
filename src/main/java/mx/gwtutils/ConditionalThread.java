@@ -30,7 +30,7 @@ public class ConditionalThread {
 		retries = MAX_RETRIES;
 	}
 
-	private void processStepsGuarded() {
+	protected void processStepsGuarded() {
 		if (steps.size() == 0) {
 			return;
 		}
