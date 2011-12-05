@@ -1,3 +1,8 @@
+/*******************************************************************************
+ * Copyright 2011 Max Erik Rohde http://www.mxro.de
+ * 
+ * All rights reserved.
+ ******************************************************************************/
 package mx.gwtutils;
 
 //Copyright 2003-2010 Christian d'Heureuse, Inventec Informatik AG, Zurich, Switzerland
