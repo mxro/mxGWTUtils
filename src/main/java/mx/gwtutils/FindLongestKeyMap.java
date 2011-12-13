@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 /**
- * Attempts to find the longest matching string within this maps. Probably more
+ * Attempts to find the longest matching {@link String} within this maps. Probably more
  * efficiently implemented using some sort of Trie data structure.
  * 
  * @author mroh004
