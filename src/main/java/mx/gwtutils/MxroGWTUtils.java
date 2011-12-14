@@ -202,6 +202,34 @@ public class MxroGWTUtils {
 		return flipped;
 	}
 
+	public static boolean anyListItemsOfType(final List<?> list, final Class<?> type) {
+		for (final Object o : list) {
+			if (type.isInstance(o)) {
+				return true;
+			} 
+		}
+		return false;
+	}
+	
+	/**
+	 * Checks whether all the items in a list have a compatible type.
+	 * 
+	 * @param list
+	 * @param type
+	 * @return
+	 */
+	public static boolean allListItemsOfType(final List<?> list, final Class<?> type) {
+		boolean result = true;
+		for (final Object o : list) {
+			if (type.isInstance(o)) {
+				result = result && true;
+			} else {
+				result = false;
+			}
+		}
+		return result;
+	}
+	
 	public static void checkUri(final String uri) {
 		assert uri != null : "Uri cannot be null.";
 		assert !uri.equals("") : "Uri cannot be empty";
