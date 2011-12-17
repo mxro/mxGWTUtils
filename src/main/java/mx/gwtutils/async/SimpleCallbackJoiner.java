@@ -5,6 +5,14 @@
  ******************************************************************************/
 package mx.gwtutils.async;
 
+/**
+ * Allows to wait for a specified number of asynchronous operations.
+ * 
+ * @see {@link ListCallbackJoiner}
+ * @author <a href="http://www.mxro.de/">Max Erik Rohde</a>
+ * 
+ * Copyright Max Erik Rohde 2011. All rights reserved.
+ */
 public abstract class SimpleCallbackJoiner {
 	
 	final int expected;

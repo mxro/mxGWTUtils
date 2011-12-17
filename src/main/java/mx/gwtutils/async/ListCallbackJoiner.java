@@ -5,7 +5,7 @@
  ******************************************************************************/
 package mx.gwtutils.async;
 
-import java.util.IdentityHashMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +24,7 @@ import mx.gwtutils.MxroGWTUtils;
  * @param <GInput>
  * @param <GOutput>
  */
-public class OrderedCallbackJoiner<GInput, GOutput> {
+public class ListCallbackJoiner<GInput, GOutput> {
 	final Map<Integer, GOutput> responseMap;
 	final List<GInput> messages;
 	final int expectedSize;
@@ -35,13 +35,15 @@ public class OrderedCallbackJoiner<GInput, GOutput> {
 
 			@Override
 			public void onSuccess(final GOutput response) {
-				responseMap.put(messages.indexOf(message), response);
+				synchronized (responseMap) {
+					responseMap.put(messages.indexOf(message), response);
 
-				if (MxroGWTUtils.isMapComplete(responseMap, expectedSize)) {
-					final List<GOutput> localResponses = MxroGWTUtils
-							.toOrderedList(responseMap);
+					if (MxroGWTUtils.isMapComplete(responseMap, expectedSize)) {
+						final List<GOutput> localResponses = MxroGWTUtils
+								.toOrderedList(responseMap);
 
-					callback.onSuccess(localResponses);
+						callback.onSuccess(localResponses);
+					}
 				}
 			}
 
@@ -53,11 +55,11 @@ public class OrderedCallbackJoiner<GInput, GOutput> {
 		};
 	}
 
-	public OrderedCallbackJoiner(final List<GInput> messages,
+	public ListCallbackJoiner(final List<GInput> messages,
 			final ListCallback<GOutput> callback) {
 		super();
 		this.messages = new IdentityArrayList<GInput>(messages);
-		this.responseMap = new IdentityHashMap<Integer, GOutput>(); // TODO should this map be synchronized?
+		this.responseMap = new HashMap<Integer, GOutput>();
 		expectedSize = messages.size();
 		this.callback = callback;
 	}

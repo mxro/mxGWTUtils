@@ -211,6 +211,17 @@ public class MxroGWTUtils {
 		return false;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public static <GPType> List<GPType> filterList(final List<?> list, final Class<GPType> type) {
+		final List<GPType> newList = new ArrayList<GPType>(list.size());
+		for (final Object o : list) {
+			if (type.isInstance(o)) {
+				newList.add((GPType) o);
+			} 
+		}
+		return newList;
+	}
+	
 	/**
 	 * Checks whether all the items in a list have a compatible type.
 	 * 
