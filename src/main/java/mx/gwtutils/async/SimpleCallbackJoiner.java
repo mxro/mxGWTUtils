@@ -48,8 +48,14 @@ public abstract class SimpleCallbackJoiner {
 
 	public SimpleCallbackJoiner(final int expected) {
 		super();
+		assert expected >= 0;
+		
 		this.expected = expected;
 		this.failed = false;
+		
+		if (expected == 0) {
+			onCompleted();
+		}
 	}
 
 }
