@@ -5,6 +5,7 @@
  ******************************************************************************/
 package mx.gwtutils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -204,18 +205,48 @@ public class MxroGWTUtils {
 
 	public static boolean anyListItemsOfType(final List<?> list, final Class<?> type) {
 		for (final Object o : list) {
-			if (type.isInstance(o)) {
+			
+			if (instanceOf(type, o)) {
 				return true;
 			} 
 		}
 		return false;
 	}
 	
+	/**
+	 * necessary for GWT as Class.isInstance is not supported.
+	 * Does not work reliably if clazz is an interface.
+	 * 
+	 * @param clazz
+	 * @param object
+	 * @return
+	 */
+	public static boolean instanceOf(final Class<? extends Object> clazz,
+			final Object object) {
+
+		if (object == null) {
+			return false;
+		}
+
+		if ((object instanceof Serializable)
+				&& clazz.equals(Serializable.class)) {
+			return true;
+		}
+		return MxroGWTUtils.isSuperclass(clazz, object.getClass());
+	}
+	
+	/**
+	 * Might not work correctly with interfaces.
+	 * 
+	 * @param list
+	 * @param type
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public static <GPType> List<GPType> filterList(final List<?> list, final Class<GPType> type) {
 		final List<GPType> newList = new ArrayList<GPType>(list.size());
 		for (final Object o : list) {
-			if (type.isInstance(o)) {
+			if (instanceOf(type, o)) {
 				newList.add((GPType) o);
 			} 
 		}
@@ -232,7 +263,7 @@ public class MxroGWTUtils {
 	public static boolean allListItemsOfType(final List<?> list, final Class<?> type) {
 		boolean result = true;
 		for (final Object o : list) {
-			if (type.isInstance(o)) {
+			if (instanceOf(type, o)) {
 				result = result && true;
 			} else {
 				result = false;
@@ -300,6 +331,21 @@ public class MxroGWTUtils {
 
 	public static final boolean emptyOrNull(final String s) {
 		return (s == null) || s.isEmpty();
+	}
+
+	public static boolean isSuperclass(
+			final Class<? extends Object> superclass,
+			final Class<? extends Object> clazz) {
+		if (superclass.equals(clazz)) {
+			return true;
+		}
+	
+		// all classes are superlcass of Object
+		if (clazz.equals(Object.class)) {
+			return false;
+		}
+	
+		return isSuperclass(superclass, clazz.getSuperclass());
 	}
 
 	

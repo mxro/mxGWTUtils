@@ -1,8 +1,7 @@
 Manifest-Version: 1.0
-Export-Package: mx.gwtutils;uses:="mx.gwtutils.tests",
- mx.gwtutils.async;uses:="mx.gwtutils",
- mx.gwtutils.concurrent,
- mx.gwtutils.tests;uses:="mx.gwtutils"
+Export-Package: mx.gwtutils.async;uses:="mx.gwtutils",mx.gwtutils;uses
+ :="mx.gwtutils.tests",mx.gwtutils.concurrent,mx.gwtutils.tests;uses:=
+ "mx.gwtutils"
 Ignore-Package: java.util,java.io,java.lang.annotation,java.lang
 Built-By: mroh004
 Tool: Bnd-1.15.0
@@ -11,7 +10,7 @@ Created-By: Apache Maven Bundle Plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Build-Jdk: 1.6.0_27
 Bundle-Version: 0.0.5.SNAPSHOT
-Bnd-LastModified: 1323652742585
+Bnd-LastModified: 1324519249134
 Bundle-ManifestVersion: 2
 Import-Package: de.mxro.thrd.hamcrest;version="[0.0,1)",de.mxro.thrd.h
  amcrest.core;version="[0.0,1)",org.hamcrest,org.hamcrest.core,org.ham
