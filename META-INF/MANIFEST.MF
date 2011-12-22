@@ -3,14 +3,14 @@ Export-Package: mx.gwtutils.async;uses:="mx.gwtutils",mx.gwtutils;uses
  :="mx.gwtutils.tests",mx.gwtutils.concurrent,mx.gwtutils.tests;uses:=
  "mx.gwtutils"
 Ignore-Package: java.util,java.io,java.lang.annotation,java.lang
-Built-By: mroh004
+Built-By: mx
 Tool: Bnd-1.15.0
 Bundle-Name: mxGWTUtils
 Created-By: Apache Maven Bundle Plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Build-Jdk: 1.6.0_27
+Build-Jdk: 1.6.0_29
 Bundle-Version: 0.0.5.SNAPSHOT
-Bnd-LastModified: 1324519249134
+Bnd-LastModified: 1324527078743
 Bundle-ManifestVersion: 2
 Import-Package: de.mxro.thrd.hamcrest;version="[0.0,1)",de.mxro.thrd.h
  amcrest.core;version="[0.0,1)",org.hamcrest,org.hamcrest.core,org.ham
