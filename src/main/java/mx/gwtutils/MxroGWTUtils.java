@@ -144,7 +144,13 @@ public class MxroGWTUtils {
 					+ index + " in " + s);
 		return list[list.length - 1];
 	}
-
+	
+	/**
+	 * Returns the extension of a given filename (excluding the .). If there is no extension defined, this function returns "".
+	 * 
+	 * @param path
+	 * @return
+	 */
 	public static String getExtension(final String path) {
 		final int dotPos = path.lastIndexOf(".");
 		if (dotPos > 0) {
@@ -194,28 +200,30 @@ public class MxroGWTUtils {
 		return s.substring(0, lastSeparatorIndex + 1)
 				+ filename.substring(0, extensionIndex);
 	}
-
+	
+	/**
+	 * Reverse the order of a list.
+	 * 
+	 * @param list
+	 * @return
+	 */
 	public static <GPEntry> List<GPEntry> flip(final List<GPEntry> list) {
-		final List<GPEntry> flipped = new Vector<GPEntry>();
+		final List<GPEntry> flipped = new ArrayList<GPEntry>(list.size());
 		for (final GPEntry entry : list) {
 			flipped.add(0, entry);
 		}
 		return flipped;
 	}
 
-	public static boolean anyListItemsOfType(final List<?> list, final Class<?> type) {
-		for (final Object o : list) {
-			
-			if (instanceOf(type, o)) {
-				return true;
-			} 
-		}
-		return false;
+	public interface Test<GType> {
+		public boolean testElement(GType element);
 	}
 	
+	
+	
 	/**
-	 * necessary for GWT as Class.isInstance is not supported.
-	 * Does not work reliably if clazz is an interface.
+	 * Necessary for GWT as Class.isInstance is not supported.
+	 * Does not work reliably if <code>clazz</code> is an interface.
 	 * 
 	 * @param clazz
 	 * @param object
@@ -232,22 +240,22 @@ public class MxroGWTUtils {
 				&& clazz.equals(Serializable.class)) {
 			return true;
 		}
+		
 		return MxroGWTUtils.isSuperclass(clazz, object.getClass());
 	}
 	
 	/**
-	 * Might not work correctly with interfaces.
+	 * Specify a predicate to filter a list.
 	 * 
 	 * @param list
 	 * @param type
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
-	public static <GPType> List<GPType> filterList(final List<?> list, final Class<GPType> type) {
+	public static <GPType> List<GPType> filterList(final List<GPType> list, final Test<GPType> test) {
 		final List<GPType> newList = new ArrayList<GPType>(list.size());
-		for (final Object o : list) {
-			if (instanceOf(type, o)) {
-				newList.add((GPType) o);
+		for (final GPType o : list) {
+			if (test.testElement(o)) {
+				newList.add(o);
 			} 
 		}
 		return newList;
@@ -260,16 +268,26 @@ public class MxroGWTUtils {
 	 * @param type
 	 * @return
 	 */
-	public static boolean allListItemsOfType(final List<?> list, final Class<?> type) {
+	public static <GPType> boolean allItemsPassTest(final List<GPType> list, final Test<GPType> test) {
 		boolean result = true;
-		for (final Object o : list) {
-			if (instanceOf(type, o)) {
+		for (final GPType o : list) {
+			if (test.testElement(o)) {
 				result = result && true;
 			} else {
 				result = false;
 			}
 		}
 		return result;
+	}
+	
+	public static <GPType> boolean anyItemPassTest(final List<GPType> list, final Test<GPType> test) {
+		for (final GPType o : list) {
+			
+			if (test.testElement(o)) {
+				return true;
+			} 
+		}
+		return false;
 	}
 	
 	public static void checkUri(final String uri) {
