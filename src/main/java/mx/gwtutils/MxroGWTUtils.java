@@ -66,6 +66,20 @@ public class MxroGWTUtils {
 	}
 
 	/**
+	 * Returns true if the given character is a 'standard' character. (a-z, A-Z).
+	 * @param character
+	 * @return
+	 */
+	public static boolean isSimpleCharacter(char character) {
+		boolean found = false;
+		for (final char element : allowedCharacters) {
+			found = found || character == element
+					|| character == Character.toUpperCase(element);
+		}
+		return found;
+	}
+	
+	/**
 	 * Simplifies any given string and makes it conformant as file name for an
 	 * URI. Illegal characters are replaced by an '_'.<br/>
 	 * <br />
@@ -80,11 +94,7 @@ public class MxroGWTUtils {
 		if (n.length() > 0) {
 			String simple = "";
 			for (int i = 0; i < n.length(); i++) {
-				boolean found = false;
-				for (final char element : allowedCharacters) {
-					found = found || n.charAt(i) == element
-							|| n.charAt(i) == Character.toUpperCase(element);
-				}
+				boolean found = isSimpleCharacter(n.charAt(i));
 				if (found) {
 					simple = simple + n.charAt(i);
 				} else {
