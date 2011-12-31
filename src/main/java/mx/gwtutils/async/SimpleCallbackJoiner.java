@@ -21,7 +21,7 @@ public abstract class SimpleCallbackJoiner {
 
 	/**
 	 * This method is called when for all expected callbacks
-	 * {@link #registerReceived()} has been called.
+	 * {@link #registerSuccess()} has been called.
 	 */
 	public abstract void onCompleted();
 
@@ -30,7 +30,7 @@ public abstract class SimpleCallbackJoiner {
 	/**
 	 * Call this method when an expected callback has been received.
 	 */
-	public void registerReceived() {
+	public void registerSuccess() {
 		received++;
 		if (!failed && received == expected) {
 			onCompleted();
