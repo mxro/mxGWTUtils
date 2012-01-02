@@ -30,21 +30,27 @@ public abstract class SingleInstanceThread implements Runnable {
 
 			@Override
 			public void run() {
-				this.run();
-
+				// System.out.println("start");
+				SingleInstanceThread.this.run();
 			}
 
 		});
 
 	}
 
+	/**
+	 * This method must be called when all pending operations for this thread
+	 * are completed.
+	 */
 	public void notifiyFinished() {
+		// System.out.println("stop");
 		isRunning = false;
 	}
 
 	public SingleInstanceThread(final SimpleExecutor executor) {
 		super();
 		this.executor = executor;
+		this.isRunning = false;
 	}
 
 }
