@@ -39,23 +39,26 @@ public class CallbackSorter<GMessage, GResponse> {
 				sentMessages);
 
 		for (final PendingMessageEntry<GMessage, GResponse> entry : localMessages) {
+			// System.out.println(entry.messages + " = " + messages);
 			if (entry.messages == messages) {
-				assert position==-1 : "Messages defined in cache more than once: ["+messages+"]";
+				assert position == -1 : "Messages defined in cache more than once: ["
+						+ messages + "]";
 				position = i;
 			}
 			i++;
 		}
-		//System.out.println("in position: "+position);
+		// System.out.println("in position: "+position);
 		return position;
 	}
 
-	protected PendingMessageEntry<GMessage, GResponse> getEntry(final int position) {
+	protected PendingMessageEntry<GMessage, GResponse> getEntry(
+			final int position) {
 		return this.sentMessages.get(position);
 	}
 
 	/**
-	 * Checks if for the message first sent to the server a response is available.
-	 * If yes, the response if forwared for the client to process.
+	 * Checks if for the message first sent to the server a response is
+	 * available. If yes, the response if forwared for the client to process.
 	 */
 	void attemptToExecuteCallback() {
 		if (sentMessages.size() <= 0) {
@@ -65,11 +68,11 @@ public class CallbackSorter<GMessage, GResponse> {
 		final PendingMessageEntry<GMessage, GResponse> zeroEntry = sentMessages
 				.get(0);
 
-		//System.out.println("process: "+zeroEntry.messages);
+		// System.out.println("process: "+zeroEntry.messages);
 		if (zeroEntry.responses != null || zeroEntry.t != null) {
 			assert zeroEntry.callback != null;
 			sentMessages.remove(0);
-			
+
 			clientThreadSpace.add(new Step() {
 
 				@Override
@@ -83,9 +86,9 @@ public class CallbackSorter<GMessage, GResponse> {
 
 			});
 			clientThreadSpace.processSteps();
-			
+
 			attemptToExecuteCallback();
-		} 
+		}
 	}
 
 	/**
@@ -99,29 +102,28 @@ public class CallbackSorter<GMessage, GResponse> {
 	public ListCallback<GResponse> createCallback(
 			final List<GMessage> messages,
 			final ListCallback<GResponse> callback) {
-		//System.out.println("messages sent: "+messages);
-		//System.out.println("messages sent: "+messages);
+		// System.out.println("messages sent: "+messages);
+		// System.out.println("messages sent: "+messages);
 		this.registerMessage(messages);
 
 		return new SortedCallback(messages, callback);
 	}
 
-	public class SortedCallback implements
-			ListCallback<GResponse> {
+	public class SortedCallback implements ListCallback<GResponse> {
 
 		final List<GMessage> messages;
 		final ListCallback<GResponse> callback;
 
 		@Override
 		public void onSuccess(final List<GResponse> responses) {
-			//System.out.println("messages response received on client: "+messages);
+			// System.out.println("messages response received on client: "
+			// + messages);
 			final int position = getEntryPosition(messages);
-			//System.out.println("position "+position);
+			// System.out.println("position "+position);
 			assert position >= 0 : "Invalid state in callback lineraizer. Messages ["
 					+ messages + "] not registered in cache.";
 
-			final PendingMessageEntry<GMessage, GResponse> e = 
-					getEntry(position);
+			final PendingMessageEntry<GMessage, GResponse> e = getEntry(position);
 
 			e.responses = responses;
 			e.callback = callback;
@@ -133,8 +135,8 @@ public class CallbackSorter<GMessage, GResponse> {
 
 		@Override
 		public void onFailure(final Throwable t) {
-			//System.out.println("failed: "+messages);
-			final int position =getEntryPosition(messages);
+			// t.printStackTrace();
+			final int position = getEntryPosition(messages);
 
 			assert position >= 0 : "Invalid state in callback lineraizer. Failed messages ["
 					+ messages + "] not registered in cache.";
@@ -153,7 +155,7 @@ public class CallbackSorter<GMessage, GResponse> {
 			super();
 			this.messages = messages;
 			this.callback = callback;
-			
+
 		}
 
 	}
