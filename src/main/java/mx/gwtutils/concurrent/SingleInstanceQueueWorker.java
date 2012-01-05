@@ -2,9 +2,6 @@ package mx.gwtutils.concurrent;
 
 import java.util.Queue;
 
-import mx.gwtutils.ThreadSpace;
-import mx.gwtutils.ThreadSpace.Step;
-
 /**
  * Allows to build a queue of objects, which are processed sequentially and
  * non-concurrently.
@@ -15,34 +12,6 @@ import mx.gwtutils.ThreadSpace.Step;
  */
 public abstract class SingleInstanceQueueWorker<GItem> {
 
-	public static ThreadSpace asThreadSpace(
-			final SingleInstanceQueueWorker<Step> worker) {
-		return new ThreadSpace() {
-
-			@Override
-			public void processSteps() {
-				worker.startIfRequired();
-			}
-
-			@Override
-			public synchronized void add(final Step s) {
-				worker.offer(s);
-			}
-
-		};
-	}
-
-	public static SingleInstanceQueueWorker<Step> newThreadSpace(
-			final SimpleExecutor executor, final Queue<Step> queue) {
-		return new SingleInstanceQueueWorker<ThreadSpace.Step>(executor, queue) {
-
-			@Override
-			public void processItem(final Step item) {
-				item.process();
-			}
-		};
-	}
-
 	private final SingleInstanceThread thread;
 	private final Queue<GItem> queue;
 
@@ -52,7 +21,7 @@ public abstract class SingleInstanceQueueWorker<GItem> {
 	 * 
 	 * @param item
 	 */
-	public abstract void processItem(GItem item);
+	protected abstract void processItem(GItem item);
 
 	/**
 	 * This will start an asynchronous worker thread if no worker thread is
