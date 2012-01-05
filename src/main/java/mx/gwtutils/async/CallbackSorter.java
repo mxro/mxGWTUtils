@@ -24,8 +24,8 @@ import mx.gwtutils.internal.async.PendingMessageEntry;
  */
 public class CallbackSorter<GMessage, GResponse> {
 
-	protected final Vector<PendingMessageEntry<GMessage, GResponse>> sentMessages;
-	protected final ThreadSpace clientThreadSpace;
+	private final Vector<PendingMessageEntry<GMessage, GResponse>> sentMessages;
+	private final ThreadSpace clientThreadSpace;
 
 	protected void registerMessage(final List<GMessage> messages) {
 		this.sentMessages.add(new PendingMessageEntry<GMessage, GResponse>(

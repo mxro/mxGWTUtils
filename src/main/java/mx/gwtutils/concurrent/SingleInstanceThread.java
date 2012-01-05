@@ -12,10 +12,11 @@ package mx.gwtutils.concurrent;
  * 
  *         Copyright Max Erik Rohde 2011. All rights reserved.
  */
-public abstract class SingleInstanceThread implements Runnable {
+public abstract class SingleInstanceThread {
 
 	private final SimpleExecutor executor;
 	private volatile Boolean isRunning;
+	private final Notifiyer notifiyer;
 
 	public void startIfRequired() {
 		synchronized (isRunning) {
@@ -30,27 +31,35 @@ public abstract class SingleInstanceThread implements Runnable {
 
 			@Override
 			public void run() {
-				// System.out.println("start");
-				SingleInstanceThread.this.run();
+				SingleInstanceThread.this.run(notifiyer);
 			}
 
 		});
 
 	}
 
-	/**
-	 * This method must be called when all pending operations for this thread
-	 * are completed.
-	 */
-	public void notifiyFinished() {
-		// System.out.println("stop");
-		isRunning = false;
+	public class Notifiyer {
+		/**
+		 * This method must be called when all pending operations for this
+		 * thread are completed.
+		 */
+		public void notifiyFinished() {
+			isRunning = false;
+		}
 	}
+
+	/**
+	 * callWhenFinished.notifiyFinished must be called when finished.
+	 * 
+	 * @param callWhenFinished
+	 */
+	public abstract void run(Notifiyer callWhenFinished);
 
 	public SingleInstanceThread(final SimpleExecutor executor) {
 		super();
 		this.executor = executor;
 		this.isRunning = false;
+		this.notifiyer = new Notifiyer();
 	}
 
 }

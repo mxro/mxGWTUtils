@@ -67,7 +67,7 @@ public class TestSingleInstanceThread {
 		final SingleInstanceThread thread = new SingleInstanceThread(executor) {
 
 			@Override
-			public void run() {
+			public void run(final Notifiyer notifiyer) {
 				for (final String text : testData) {
 					text.toLowerCase();
 				}
@@ -76,7 +76,7 @@ public class TestSingleInstanceThread {
 					testData.add(value);
 				}
 
-				this.notifiyFinished();
+				notifiyer.notifiyFinished();
 			}
 		};
 
