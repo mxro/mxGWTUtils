@@ -66,11 +66,13 @@ public class MxroGWTUtils {
 	}
 
 	/**
-	 * Returns true if the given character is a 'standard' character. (a-z, A-Z).
+	 * Returns true if the given character is a 'standard' character. (a-z,
+	 * A-Z).
+	 * 
 	 * @param character
 	 * @return
 	 */
-	public static boolean isSimpleCharacter(char character) {
+	public static boolean isSimpleCharacter(final char character) {
 		boolean found = false;
 		for (final char element : allowedCharacters) {
 			found = found || character == element
@@ -78,7 +80,7 @@ public class MxroGWTUtils {
 		}
 		return found;
 	}
-	
+
 	/**
 	 * Simplifies any given string and makes it conformant as file name for an
 	 * URI. Illegal characters are replaced by an '_'.<br/>
@@ -94,7 +96,7 @@ public class MxroGWTUtils {
 		if (n.length() > 0) {
 			String simple = "";
 			for (int i = 0; i < n.length(); i++) {
-				boolean found = isSimpleCharacter(n.charAt(i));
+				final boolean found = isSimpleCharacter(n.charAt(i));
 				if (found) {
 					simple = simple + n.charAt(i);
 				} else {
@@ -154,9 +156,10 @@ public class MxroGWTUtils {
 					+ index + " in " + s);
 		return list[list.length - 1];
 	}
-	
+
 	/**
-	 * Returns the extension of a given filename (excluding the .). If there is no extension defined, this function returns "".
+	 * Returns the extension of a given filename (excluding the .). If there is
+	 * no extension defined, this function returns "".
 	 * 
 	 * @param path
 	 * @return
@@ -210,7 +213,7 @@ public class MxroGWTUtils {
 		return s.substring(0, lastSeparatorIndex + 1)
 				+ filename.substring(0, extensionIndex);
 	}
-	
+
 	/**
 	 * Reverse the order of a list.
 	 * 
@@ -225,15 +228,31 @@ public class MxroGWTUtils {
 		return flipped;
 	}
 
+	/**
+	 * Joins the items of multiple lists into one list.
+	 * 
+	 * @return
+	 */
+	public static <GPItem> List<GPItem> joinLists(final List<List<GPItem>> lists) {
+		if (lists.size() == 0) {
+			return new ArrayList<GPItem>(0);
+		}
+		final List<GPItem> joined = new ArrayList<GPItem>(lists.size()
+				* lists.get(0).size());
+		for (final List<GPItem> list : lists) {
+			joined.addAll(list);
+		}
+
+		return joined;
+	}
+
 	public interface Test<GType> {
 		public boolean testElement(GType element);
 	}
-	
-	
-	
+
 	/**
-	 * Necessary for GWT as Class.isInstance is not supported.
-	 * Does not work reliably if <code>clazz</code> is an interface.
+	 * Necessary for GWT as Class.isInstance is not supported. Does not work
+	 * reliably if <code>clazz</code> is an interface.
 	 * 
 	 * @param clazz
 	 * @param object
@@ -250,10 +269,10 @@ public class MxroGWTUtils {
 				&& clazz.equals(Serializable.class)) {
 			return true;
 		}
-		
+
 		return MxroGWTUtils.isSuperclass(clazz, object.getClass());
 	}
-	
+
 	/**
 	 * Specify a predicate to filter a list.
 	 * 
@@ -261,16 +280,17 @@ public class MxroGWTUtils {
 	 * @param type
 	 * @return
 	 */
-	public static <GPType> List<GPType> filterList(final List<GPType> list, final Test<GPType> test) {
+	public static <GPType> List<GPType> filterList(final List<GPType> list,
+			final Test<GPType> test) {
 		final List<GPType> newList = new ArrayList<GPType>(list.size());
 		for (final GPType o : list) {
 			if (test.testElement(o)) {
 				newList.add(o);
-			} 
+			}
 		}
 		return newList;
 	}
-	
+
 	/**
 	 * Checks whether all the items in a list have a compatible type.
 	 * 
@@ -278,7 +298,8 @@ public class MxroGWTUtils {
 	 * @param type
 	 * @return
 	 */
-	public static <GPType> boolean allItemsPassTest(final List<GPType> list, final Test<GPType> test) {
+	public static <GPType> boolean allItemsPassTest(final List<GPType> list,
+			final Test<GPType> test) {
 		boolean result = true;
 		for (final GPType o : list) {
 			if (test.testElement(o)) {
@@ -289,17 +310,18 @@ public class MxroGWTUtils {
 		}
 		return result;
 	}
-	
-	public static <GPType> boolean anyItemPassTest(final List<GPType> list, final Test<GPType> test) {
+
+	public static <GPType> boolean anyItemPassTest(final List<GPType> list,
+			final Test<GPType> test) {
 		for (final GPType o : list) {
-			
+
 			if (test.testElement(o)) {
 				return true;
-			} 
+			}
 		}
 		return false;
 	}
-	
+
 	public static void checkUri(final String uri) {
 		assert uri != null : "Uri cannot be null.";
 		assert !uri.equals("") : "Uri cannot be empty";
@@ -311,13 +333,13 @@ public class MxroGWTUtils {
 
 		return ofString.concat("/");
 	}
-	
+
 	public static String assertNoSlash(final String ofString) {
 		if (!ofString.endsWith("/")) {
 			return ofString;
 		}
-			
-		return ofString.substring(0, ofString.length()-1);
+
+		return ofString.substring(0, ofString.length() - 1);
 	}
 
 	public static <GPType> List<GPType> asList(final GPType node) {
@@ -367,15 +389,13 @@ public class MxroGWTUtils {
 		if (superclass.equals(clazz)) {
 			return true;
 		}
-	
+
 		// all classes are superlcass of Object
 		if (clazz.equals(Object.class)) {
 			return false;
 		}
-	
+
 		return isSuperclass(superclass, clazz.getSuperclass());
 	}
-
-	
 
 }
