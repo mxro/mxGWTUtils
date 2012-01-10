@@ -247,6 +247,13 @@ public class MxroGWTUtils {
 	}
 
 	public interface Test<GType> {
+		/**
+		 * If the specified element passes the test, this method should return
+		 * true.
+		 * 
+		 * @param element
+		 * @return
+		 */
 		public boolean testElement(GType element);
 	}
 
