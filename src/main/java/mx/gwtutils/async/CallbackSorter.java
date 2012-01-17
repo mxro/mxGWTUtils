@@ -135,11 +135,17 @@ public class CallbackSorter<GMessage, GResponse> {
 
 		@Override
 		public void onFailure(final Throwable t) {
+			// System.out.println("failed messages response received on client: "
+			// + messages);
+			//
 			// t.printStackTrace();
 			final int position = getEntryPosition(messages);
 
-			assert position >= 0 : "Invalid state in callback lineraizer. Failed messages ["
-					+ messages + "] not registered in cache.";
+			assert position >= 0 : "Invalid state in callback lineraizer for failure ["
+					+ t.getMessage()
+					+ "]. Failed messages ["
+					+ messages
+					+ "] not registered in cache.";
 
 			final PendingMessageEntry<GMessage, GResponse> e = getEntry(position);
 
