@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
+import one.utils.OneUtilsStrings;
+
 public class MxroGWTUtils {
 
 	public static String cloneString(final String toClone) {
@@ -48,11 +50,6 @@ public class MxroGWTUtils {
 		return res;
 	}
 
-	public static char[] allowedCharacters = { 'a', 'b', 'c', 'd', 'e', 'f',
-			'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
-			't', 'u', 'v', 'w', 'x', 'y', 'z', '_', '-', '.', '1', '2', '3',
-			'4', '5', '6', '7', '8', '9', '0' };
-
 	/**
 	 * @see #getSimpleName(String)
 	 * 
@@ -63,22 +60,6 @@ public class MxroGWTUtils {
 		if (name.length() > maxCharacters)
 			return name.substring(0, maxCharacters);
 		return name;
-	}
-
-	/**
-	 * Returns true if the given character is a 'standard' character. (a-z,
-	 * A-Z).
-	 * 
-	 * @param character
-	 * @return
-	 */
-	public static boolean isSimpleCharacter(final char character) {
-		boolean found = false;
-		for (final char element : allowedCharacters) {
-			found = found || character == element
-					|| character == Character.toUpperCase(element);
-		}
-		return found;
 	}
 
 	/**
@@ -96,7 +77,8 @@ public class MxroGWTUtils {
 		if (n.length() > 0) {
 			String simple = "";
 			for (int i = 0; i < n.length(); i++) {
-				final boolean found = isSimpleCharacter(n.charAt(i));
+				final boolean found = OneUtilsStrings.isSimpleCharacter(n
+						.charAt(i));
 				if (found) {
 					simple = simple + n.charAt(i);
 				} else {

@@ -27,7 +27,11 @@
 	<!-- Dependent Modules -->
 	<dependencies>
 
-
+		<dependency>
+		<groupId>one.utils</groupId>
+	<artifactId>oneUtils</artifactId>
+	<version>[0.0.1,)</version>
+		</dependency>
 		<!-- <dependency>
 			<groupId>de.mxro.thrd.guavagwt</groupId>
 			<artifactId>thrdGuavaGwt</artifactId>
