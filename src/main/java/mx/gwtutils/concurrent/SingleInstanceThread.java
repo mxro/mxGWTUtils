@@ -50,6 +50,10 @@ public abstract class SingleInstanceThread {
 		}
 	}
 
+	public Boolean getIsRunning() {
+		return isRunning;
+	}
+
 	/**
 	 * callWhenFinished.notifiyFinished must be called when finished.
 	 * 

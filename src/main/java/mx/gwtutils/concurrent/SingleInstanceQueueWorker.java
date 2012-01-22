@@ -42,6 +42,10 @@ public abstract class SingleInstanceQueueWorker<GItem> {
 		queue.offer(item);
 	}
 
+	public boolean isRunning() {
+		return thread.getIsRunning();
+	}
+
 	public SingleInstanceQueueWorker(final OneExecutor executor,
 			final Queue<GItem> queue) {
 		this.thread = new SingleInstanceThread(executor) {
