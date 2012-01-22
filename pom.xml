@@ -16,6 +16,7 @@
 			org.hamcrest,
 			org.hamcrest.core,
 			org.hamcrest.internal,
+			one*,
 			!*
 		</module.importedPackages>
 		<module.exportedPackages>!mx.gwtutils.internal*,mx.gwtutils*

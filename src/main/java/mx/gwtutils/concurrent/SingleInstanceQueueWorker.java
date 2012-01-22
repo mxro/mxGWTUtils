@@ -2,6 +2,8 @@ package mx.gwtutils.concurrent;
 
 import java.util.Queue;
 
+import one.utils.concurrent.OneExecutor;
+
 /**
  * Allows to build a queue of objects, which are processed sequentially and
  * non-concurrently.
@@ -40,7 +42,7 @@ public abstract class SingleInstanceQueueWorker<GItem> {
 		queue.offer(item);
 	}
 
-	public SingleInstanceQueueWorker(final SimpleExecutor executor,
+	public SingleInstanceQueueWorker(final OneExecutor executor,
 			final Queue<GItem> queue) {
 		this.thread = new SingleInstanceThread(executor) {
 

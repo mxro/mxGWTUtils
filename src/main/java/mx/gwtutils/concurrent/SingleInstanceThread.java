@@ -3,6 +3,8 @@
  */
 package mx.gwtutils.concurrent;
 
+import one.utils.concurrent.OneExecutor;
+
 /**
  * A thread of which only one instance runs at any one time.<br/>
  * <b>NOTE: </b>Implementing classes MUST call {@link #notifiyFinished()} in
@@ -14,7 +16,7 @@ package mx.gwtutils.concurrent;
  */
 public abstract class SingleInstanceThread {
 
-	private final SimpleExecutor executor;
+	private final OneExecutor executor;
 	private volatile Boolean isRunning;
 	private final Notifiyer notifiyer;
 
@@ -55,7 +57,7 @@ public abstract class SingleInstanceThread {
 	 */
 	public abstract void run(Notifiyer callWhenFinished);
 
-	public SingleInstanceThread(final SimpleExecutor executor) {
+	public SingleInstanceThread(final OneExecutor executor) {
 		super();
 		this.executor = executor;
 		this.isRunning = false;
