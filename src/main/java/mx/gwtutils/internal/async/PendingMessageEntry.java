@@ -7,7 +7,8 @@ package mx.gwtutils.internal.async;
 
 import java.util.List;
 
-import mx.gwtutils.async.ListCallback;
+import one.async.joiner.ListCallback;
+
 
 public class PendingMessageEntry<GMessage, GResponse> {
 	public final List<GMessage> messages;

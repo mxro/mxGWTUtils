@@ -8,7 +8,6 @@ package mx.gwtutils;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Vector;
 
 import one.utils.OneUtilsStrings;
@@ -343,29 +342,6 @@ public class MxroGWTUtils {
 		list.add(node1);
 		list.add(node2);
 		return list;
-	}
-
-	public static <GOutput> List<GOutput> toOrderedList(
-			final Map<Integer, GOutput> responseMap) {
-		final List<GOutput> localResponses = new ArrayList<GOutput>();
-		for (int i = 0; i < responseMap.size(); i++) {
-			final GOutput rr = responseMap.get(Integer.valueOf(i));
-
-			assert rr != null;
-
-			localResponses.add(rr);
-		}
-		return localResponses;
-	}
-
-	public static <GPOutput> boolean isMapComplete(
-			final Map<Integer, GPOutput> map, final int size) {
-		for (int i = 0; i < size; i++) {
-			if (map.get(Integer.valueOf(i)) == null) {
-				return false;
-			}
-		}
-		return true;
 	}
 
 	public static final boolean emptyOrNull(final String s) {
