@@ -82,7 +82,7 @@ public class CallbackSorter<GMessage, GResponse> {
 						try {
 							zeroEntry.callback.onSuccess(zeroEntry.responses);
 						} catch (final Throwable t) {
-							// t.printStackTrace();
+							t.printStackTrace(); // TODO remove this printout
 							zeroEntry.callback.onFailure(t);
 						}
 
