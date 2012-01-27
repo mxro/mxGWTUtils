@@ -261,6 +261,18 @@ public class MxroGWTUtils {
 		return MxroGWTUtils.isSuperclass(clazz, object.getClass());
 	}
 
+	public static interface ListElementOperation<ElementType> {
+		public void process(ElementType element);
+	}
+
+	public static <ElementType> void forAllListItem(
+			final List<ElementType> list,
+			final ListElementOperation<ElementType> operation) {
+		for (final ElementType element : list) {
+			operation.process(element);
+		}
+	}
+
 	/**
 	 * Specify a predicate to filter a list.
 	 * 
