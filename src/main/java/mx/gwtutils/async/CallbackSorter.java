@@ -9,11 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-import one.async.joiner.ListCallback;
-
 import mx.gwtutils.ThreadSpace;
 import mx.gwtutils.ThreadSpace.Step;
 import mx.gwtutils.internal.async.PendingMessageEntry;
+import one.async.joiner.ListCallback;
 
 /**
  * {@link CallbackSorter} will assure that callbacks for incoming messages are
@@ -80,7 +79,13 @@ public class CallbackSorter<GMessage, GResponse> {
 				@Override
 				public void process() {
 					if (zeroEntry.isSuccess) {
-						zeroEntry.callback.onSuccess(zeroEntry.responses);
+						try {
+							zeroEntry.callback.onSuccess(zeroEntry.responses);
+						} catch (final Throwable t) {
+							// t.printStackTrace();
+							zeroEntry.callback.onFailure(t);
+						}
+
 					} else {
 						zeroEntry.callback.onFailure(zeroEntry.t);
 					}
