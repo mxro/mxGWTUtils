@@ -79,12 +79,13 @@ public class CallbackSorter<GMessage, GResponse> {
 				@Override
 				public void process() {
 					if (zeroEntry.isSuccess) {
-						try {
-							zeroEntry.callback.onSuccess(zeroEntry.responses);
-						} catch (final Throwable t) {
-							t.printStackTrace(); // TODO remove this printout
-							zeroEntry.callback.onFailure(t);
-						}
+						// try {
+						zeroEntry.callback.onSuccess(zeroEntry.responses);
+						// } catch (final Throwable t) {
+						// t.printStackTrace(); // TODO remove this printout
+
+						// zeroEntry.callback.onFailure(t);
+						// }
 
 					} else {
 						zeroEntry.callback.onFailure(zeroEntry.t);
