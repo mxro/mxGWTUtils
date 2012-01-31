@@ -128,8 +128,8 @@ public class CallbackSorter<GMessage, GResponse> {
 			// + messages);
 			final int position = getEntryPosition(messages);
 			// System.out.println("position "+position);
-			assert position >= 0 : "Invalid state in callback lineraizer. Messages ["
-					+ messages + "] not registered in cache.";
+			assert position >= 0 : "Invalid state in callback linearizer messages not registered in cache\n"
+					+ "  Messages [" + messages + "] not registered in cache.";
 
 			final PendingMessageEntry<GMessage, GResponse> e = getEntry(position);
 
@@ -149,7 +149,7 @@ public class CallbackSorter<GMessage, GResponse> {
 			// t.printStackTrace();
 			final int position = getEntryPosition(messages);
 
-			assert position >= 0 : "Invalid state in callback lineraizer for failure ["
+			assert position >= 0 : "Invalid state in callback linearizer for failure ["
 					+ t.getMessage()
 					+ "]. Failed messages ["
 					+ messages
