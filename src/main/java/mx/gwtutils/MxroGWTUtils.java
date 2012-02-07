@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import one.utils.OneUtilsCollections;
 import one.utils.OneUtilsStrings;
 
 public class MxroGWTUtils {
@@ -227,17 +228,6 @@ public class MxroGWTUtils {
 		return joined;
 	}
 
-	public interface Test<GType> {
-		/**
-		 * If the specified element passes the test, this method should return
-		 * true.
-		 * 
-		 * @param element
-		 * @return
-		 */
-		public boolean testElement(GType element);
-	}
-
 	/**
 	 * Necessary for GWT as Class.isInstance is not supported. Does not work
 	 * reliably if <code>clazz</code> is an interface.
@@ -274,24 +264,6 @@ public class MxroGWTUtils {
 	}
 
 	/**
-	 * Specify a predicate to filter a list.
-	 * 
-	 * @param list
-	 * @param type
-	 * @return
-	 */
-	public static <GPType> List<GPType> filterList(final List<GPType> list,
-			final Test<GPType> test) {
-		final List<GPType> newList = new ArrayList<GPType>(list.size());
-		for (final GPType o : list) {
-			if (test.testElement(o)) {
-				newList.add(o);
-			}
-		}
-		return newList;
-	}
-
-	/**
 	 * Checks whether all the items in a list have a compatible type.
 	 * 
 	 * @param list
@@ -299,7 +271,7 @@ public class MxroGWTUtils {
 	 * @return
 	 */
 	public static <GPType> boolean allItemsPassTest(final List<GPType> list,
-			final Test<GPType> test) {
+			final OneUtilsCollections.Predicate<GPType> test) {
 		boolean result = true;
 		for (final GPType o : list) {
 			if (test.testElement(o)) {
@@ -312,7 +284,7 @@ public class MxroGWTUtils {
 	}
 
 	public static <GPType> boolean anyItemPassTest(final List<GPType> list,
-			final Test<GPType> test) {
+			final OneUtilsCollections.Predicate<GPType> test) {
 		for (final GPType o : list) {
 
 			if (test.testElement(o)) {
