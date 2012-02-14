@@ -7,6 +7,7 @@ package mx.gwtutils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
 
@@ -203,7 +204,7 @@ public class MxroGWTUtils {
 	 * @return
 	 */
 	public static <GPEntry> List<GPEntry> flip(final List<GPEntry> list) {
-		final List<GPEntry> flipped = new ArrayList<GPEntry>(list.size());
+		final List<GPEntry> flipped = new LinkedList<GPEntry>();
 		for (final GPEntry entry : list) {
 			flipped.add(0, entry);
 		}
