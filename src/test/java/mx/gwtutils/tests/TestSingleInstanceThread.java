@@ -60,7 +60,7 @@ public class TestSingleInstanceThread {
 			}
 
 			@Override
-			public void shutDown(final WhenExecutorShutDown callback) {
+			public void shutdown(final WhenExecutorShutDown callback) {
 				callback.thenDo();
 			}
 
