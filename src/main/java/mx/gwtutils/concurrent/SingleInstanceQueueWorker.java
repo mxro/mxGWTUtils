@@ -1,5 +1,7 @@
 package mx.gwtutils.concurrent;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Queue;
 
 import one.utils.concurrent.OneExecutor;
@@ -23,7 +25,7 @@ public abstract class SingleInstanceQueueWorker<GItem> {
 	 * 
 	 * @param item
 	 */
-	protected abstract void processItem(GItem item);
+	protected abstract void processItems(List<GItem> item);
 
 	/**
 	 * This will start an asynchronous worker thread if no worker thread is
@@ -52,11 +54,14 @@ public abstract class SingleInstanceQueueWorker<GItem> {
 
 			@Override
 			public void run(final Notifiyer notifiyer) {
-				GItem next;
+				final List<GItem> items = new ArrayList<GItem>(queue.size());
 
+				GItem next;
 				while ((next = queue.poll()) != null) {
-					processItem(next);
+					items.add(next);
 				}
+
+				processItems(items);
 
 				notifiyer.notifiyFinished();
 			}
