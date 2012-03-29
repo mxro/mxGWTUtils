@@ -32,7 +32,9 @@ public abstract class SingleInstanceQueueWorker<GItem> {
 	 * already running.
 	 */
 	public void startIfRequired() {
-		thread.startIfRequired();
+		synchronized (queue) {
+			thread.startIfRequired();
+		}
 	}
 
 	/**
@@ -41,7 +43,9 @@ public abstract class SingleInstanceQueueWorker<GItem> {
 	 * @param item
 	 */
 	public void offer(final GItem item) {
-		queue.offer(item);
+		synchronized (queue) {
+			queue.offer(item);
+		}
 	}
 
 	public boolean isRunning() {
@@ -55,18 +59,23 @@ public abstract class SingleInstanceQueueWorker<GItem> {
 			@Override
 			public void run(final Notifiyer notifiyer) {
 
-				while (queue.size() > 0) {
-					final List<GItem> items = new ArrayList<GItem>(queue.size());
+				synchronized (queue) {
 
-					GItem next;
-					while ((next = queue.poll()) != null) {
-						items.add(next);
+					while (queue.size() > 0) {
+						final List<GItem> items = new ArrayList<GItem>(
+								queue.size());
+
+						GItem next;
+						while ((next = queue.poll()) != null) {
+							items.add(next);
+							// break;
+						}
+
+						processItems(items);
 					}
 
-					processItems(items);
+					notifiyer.notifiyFinished();
 				}
-
-				notifiyer.notifiyFinished();
 			}
 
 		};
