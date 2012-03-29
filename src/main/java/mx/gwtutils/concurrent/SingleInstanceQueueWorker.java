@@ -54,14 +54,17 @@ public abstract class SingleInstanceQueueWorker<GItem> {
 
 			@Override
 			public void run(final Notifiyer notifiyer) {
-				final List<GItem> items = new ArrayList<GItem>(queue.size());
 
-				GItem next;
-				while ((next = queue.poll()) != null) {
-					items.add(next);
+				while (queue.size() > 0) {
+					final List<GItem> items = new ArrayList<GItem>(queue.size());
+
+					GItem next;
+					while ((next = queue.poll()) != null) {
+						items.add(next);
+					}
+
+					processItems(items);
 				}
-
-				processItems(items);
 
 				notifiyer.notifiyFinished();
 			}
