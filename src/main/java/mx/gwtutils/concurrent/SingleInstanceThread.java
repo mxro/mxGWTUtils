@@ -18,9 +18,19 @@ public abstract class SingleInstanceThread {
 
 	private final OneExecutor executor;
 	private volatile Boolean isRunning;
+	private volatile long lastCall;
+	private long maxCalltime;
 	private final Notifiyer notifiyer;
 
 	public void startIfRequired() {
+
+		if (maxCalltime > -1 && lastCall > -1
+				&& (System.currentTimeMillis() - lastCall) > maxCalltime) {
+			isRunning = false;
+			new Exception("Worker thread was manually rest.")
+					.printStackTrace(System.err);
+		}
+
 		synchronized (isRunning) {
 			if (isRunning) {
 				return;
@@ -33,6 +43,9 @@ public abstract class SingleInstanceThread {
 
 			@Override
 			public void run() {
+				assert isRunning;
+				lastCall = System.currentTimeMillis();
+
 				SingleInstanceThread.this.run(notifiyer);
 			}
 
@@ -46,12 +59,17 @@ public abstract class SingleInstanceThread {
 		 * thread are completed.
 		 */
 		public void notifiyFinished() {
+			lastCall = -1;
 			isRunning = false;
 		}
 	}
 
 	public Boolean getIsRunning() {
 		return isRunning;
+	}
+
+	public void setMaxCallTime(final long maxCallTimeInMs) {
+		this.maxCalltime = maxCallTimeInMs;
 	}
 
 	/**
@@ -66,6 +84,8 @@ public abstract class SingleInstanceThread {
 		this.executor = executor;
 		this.isRunning = false;
 		this.notifiyer = new Notifiyer();
+		this.maxCalltime = -1;
+		this.lastCall = -1;
 	}
 
 }
