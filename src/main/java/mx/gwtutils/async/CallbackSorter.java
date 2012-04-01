@@ -127,6 +127,9 @@ public class CallbackSorter<GMessage, GResponse> {
 
 			final int position = getEntryPosition(messages);
 
+			// new Exception("RECEIVE SUCCESS [" + responses + "]")
+			// .printStackTrace();
+
 			assert position >= 0 : "Invalid state in callback linearizer messages not registered in cache\n"
 					+ "  Messages [" + messages + "] not registered in cache.";
 
@@ -143,6 +146,9 @@ public class CallbackSorter<GMessage, GResponse> {
 		@Override
 		public void onFailure(final Throwable t) {
 			final int position = getEntryPosition(messages);
+
+			// new Exception("RECEIVE FAILURE [" + t.getMessage() + "]")
+			// .printStackTrace();
 
 			assert position >= 0 : "No message is defined for reported failure.\n"
 					+ "  Exception: ["
