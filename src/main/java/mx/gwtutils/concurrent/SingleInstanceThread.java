@@ -72,6 +72,10 @@ public abstract class SingleInstanceThread {
 		this.maxCalltime = maxCallTimeInMs;
 	}
 
+	public OneExecutor getExecutor() {
+		return executor;
+	}
+
 	/**
 	 * callWhenFinished.notifiyFinished must be called when finished.
 	 * 
