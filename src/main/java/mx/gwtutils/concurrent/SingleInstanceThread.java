@@ -27,7 +27,7 @@ public abstract class SingleInstanceThread {
 		if (maxCalltime > -1 && lastCall > -1
 				&& (System.currentTimeMillis() - lastCall) > maxCalltime) {
 			isRunning = false;
-			new Exception("Worker thread was manually rest.")
+			new Exception("Worker thread was manually reset.")
 					.printStackTrace(System.err);
 		}
 
