@@ -7,6 +7,7 @@ package mx.gwtutils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
@@ -346,6 +347,88 @@ public class MxroGWTUtils {
 		}
 
 		return isSuperclass(superclass, clazz.getSuperclass());
+	}
+
+	/**
+	 * Given that nodes of realms follow the pattern.
+	 * <tt>[http|https]://[domain]/[generated realm id]/[realm mnemonic]/[parent 1]/.../[parent n]/[node]</tt>
+	 * It's possible to determine the parents of a node within a realm solely
+	 * from a nodes uri.<br/>
+	 * All uris of parents are retrieved without an ending slash.
+	 * 
+	 * @param node
+	 * @return
+	 */
+	public static List<String> getParentsInRealm(final String node) {
+	
+		// System.out.println("getParentsInRealm for "+node);
+	
+		final int lengthProtocol;
+		if (node.startsWith("https://")) {
+			lengthProtocol = "https://".length();
+		} else if (node.startsWith("http://")) {
+			lengthProtocol = "http://".length();
+		} else {
+			throw new IllegalArgumentException(
+					"Protocol not supported for uri : " + node);
+		}
+	
+		final String withoutProtocol = node.substring(lengthProtocol);
+	
+		final int lengthDomain = withoutProtocol.indexOf("/") + 1; // +1 for '/'
+	
+		if (lengthDomain <= 0) {
+			return Collections.unmodifiableList(new ArrayList<String>(0));
+		}
+	
+		final String withoutDomain = withoutProtocol.substring(lengthDomain);
+	
+		final int lengthIdPathElement = withoutDomain.indexOf("/") + 1; // +1
+																		// for
+																		// '/'
+		if (lengthIdPathElement <= 0) {
+			return Collections.unmodifiableList(new ArrayList<String>(0));
+		}
+	
+		final String withoutIdPathElement = withoutDomain
+				.substring(lengthIdPathElement);
+	
+		final int lengthMenomicPathElement = withoutIdPathElement.indexOf("/") + 1;
+	
+		if (lengthMenomicPathElement <= 0) {
+			return Collections.unmodifiableList(new ArrayList<String>(0));
+		}
+	
+		final List<String> parents = new ArrayList<String>(6);
+	
+		final String realmUri = node.substring(0, lengthProtocol + lengthDomain
+				+ lengthIdPathElement + lengthMenomicPathElement - 1);
+	
+		if (assertSlash(node).equals(
+				assertSlash(realmUri))) {
+			return Collections.unmodifiableList(new ArrayList<String>(0));
+		}
+	
+		parents.add(realmUri);
+	
+		final String withoutMenomicPathElement = withoutIdPathElement
+				.substring(lengthMenomicPathElement);
+		if (withoutMenomicPathElement.length() == 0) {
+			return Collections.unmodifiableList(parents);
+		}
+	
+		final String[] paths = withoutMenomicPathElement.split("/");
+		String previous = realmUri + "/";
+		for (final String pathElement : paths) {
+			if (pathElement.length() == 0) {
+				return Collections.unmodifiableList(parents);
+			}
+			parents.add(previous + pathElement);
+			previous = previous + pathElement + "/";
+		}
+		parents.remove(parents.size() - 1);
+		return Collections.unmodifiableList(parents);
+	
 	}
 
 }
