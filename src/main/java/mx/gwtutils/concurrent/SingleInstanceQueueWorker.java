@@ -19,6 +19,10 @@ public abstract class SingleInstanceQueueWorker<GItem> {
 	private final SingleInstanceThread thread;
 	private final Queue<GItem> queue;
 
+	private volatile boolean shutdownRequested = false;
+	private volatile boolean isShutDown = false;
+	private volatile QueueShutdownCallback shutDowncallback;
+
 	/**
 	 * It is guaranteed that this method is only called by one worker thread at
 	 * the time and that the items are forwarded FIFO how they were offered.
@@ -37,6 +41,16 @@ public abstract class SingleInstanceQueueWorker<GItem> {
 		}
 	}
 
+	public interface QueueShutdownCallback {
+		public void onShutdown();
+	}
+
+	public void requestShutdown(final QueueShutdownCallback callback) {
+		shutDowncallback = callback;
+		shutdownRequested = true;
+		thread.startIfRequired();
+	}
+
 	/**
 	 * Schedules to process this item.
 	 * 
@@ -44,6 +58,11 @@ public abstract class SingleInstanceQueueWorker<GItem> {
 	 */
 	public void offer(final GItem item) {
 		synchronized (queue) {
+			if (isShutDown) {
+				throw new IllegalStateException(
+						"Cannot submit tasks for a shutdown worker: [" + item
+								+ "]");
+			}
 			queue.offer(item);
 		}
 	}
@@ -79,6 +98,11 @@ public abstract class SingleInstanceQueueWorker<GItem> {
 					}
 
 					notifiyer.notifiyFinished();
+
+					if (shutdownRequested) {
+						isShutDown = true;
+						shutDowncallback.onShutdown();
+					}
 				}
 			}
 
