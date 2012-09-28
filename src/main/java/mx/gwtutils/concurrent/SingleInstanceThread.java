@@ -22,6 +22,8 @@ public abstract class SingleInstanceThread {
 	private long maxCalltime;
 	private final Notifiyer notifiyer;
 
+	private Object workerThread;
+
 	public void startIfRequired() {
 
 		if (maxCalltime > -1 && lastCall > -1
@@ -39,7 +41,7 @@ public abstract class SingleInstanceThread {
 			isRunning = true;
 		}
 
-		executor.execute(new Runnable() {
+		workerThread = executor.execute(new Runnable() {
 
 			@Override
 			public void run() {
@@ -51,6 +53,10 @@ public abstract class SingleInstanceThread {
 
 		});
 
+	}
+
+	public Object getWorkerThread() {
+		return workerThread;
 	}
 
 	public class Notifiyer {

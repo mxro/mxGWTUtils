@@ -50,18 +50,25 @@ public class TestSingleInstanceThread {
 		final OneExecutor executor = new OneExecutor() {
 
 			@Override
-			public void execute(final Runnable runnable) {
-				new Thread() {
+			public Object execute(final Runnable runnable) {
+				final Thread thread = new Thread() {
 					@Override
 					public void run() {
 						runnable.run();
 					}
-				}.start();
+				};
+				thread.start();
+				return thread;
 			}
 
 			@Override
 			public void shutdown(final WhenExecutorShutDown callback) {
 				callback.thenDo();
+			}
+
+			@Override
+			public Object getCurrentThread() {
+				return Thread.currentThread();
 			}
 
 		};
