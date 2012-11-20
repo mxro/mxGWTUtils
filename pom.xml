@@ -3,7 +3,7 @@
 <project>
 	<groupId>de.mxro.gtwutils</groupId>
 	<artifactId>mxGWTUtils</artifactId>
-	<version>0.0.5-SNAPSHOT</version>
+	<version>0.0.6-SNAPSHOT</version>
 	<description>Utility methods and classes, which can be used in GWT and
 		JRE environments.</description>
 
