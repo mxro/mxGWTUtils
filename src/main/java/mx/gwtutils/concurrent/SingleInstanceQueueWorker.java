@@ -36,7 +36,11 @@ public abstract class SingleInstanceQueueWorker<GItem> {
 	 * already running.
 	 */
 	public void startIfRequired() {
+
 		synchronized (queue) {
+			if (queue.size() == 0) {
+				return;
+			}
 			thread.startIfRequired();
 		}
 	}
