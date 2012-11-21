@@ -3,6 +3,7 @@ package mx.gwtutils.concurrent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Vector;
 
 import one.utils.concurrent.OneExecutor;
 
@@ -22,6 +23,12 @@ public abstract class SingleInstanceQueueWorker<GItem> {
 	private volatile boolean shutdownRequested = false;
 	private volatile boolean isShutDown = false;
 	private volatile QueueShutdownCallback shutDowncallback;
+
+	private final Vector<WhenProcessed> finalizedListener;
+
+	public static interface WhenProcessed {
+		public void thenDo();
+	}
 
 	/**
 	 * It is guaranteed that this method is only called by one worker thread at
@@ -43,6 +50,19 @@ public abstract class SingleInstanceQueueWorker<GItem> {
 			}
 			thread.startIfRequired();
 		}
+
+	}
+
+	public void processAllTimens(final WhenProcessed whenProcessed) {
+		this.startIfRequired();
+		this.finalizedListener.add(new WhenProcessed() {
+
+			@Override
+			public void thenDo() {
+				finalizedListener.remove(whenProcessed);
+				whenProcessed.thenDo();
+			}
+		});
 	}
 
 	public interface QueueShutdownCallback {
@@ -103,6 +123,14 @@ public abstract class SingleInstanceQueueWorker<GItem> {
 
 					notifiyer.notifiyFinished();
 
+					if (finalizedListener.size() > 0) {
+						final ArrayList<WhenProcessed> toProcesses = new ArrayList<WhenProcessed>(
+								finalizedListener);
+						for (final WhenProcessed p : toProcesses) {
+							p.thenDo();
+						}
+					}
+
 					if (shutdownRequested) {
 						isShutDown = true;
 						shutDowncallback.onShutdown();
@@ -112,6 +140,8 @@ public abstract class SingleInstanceQueueWorker<GItem> {
 
 		};
 		this.queue = queue;
+		this.finalizedListener = new Vector<SingleInstanceQueueWorker.WhenProcessed>(
+				5);
 	}
 
 }
