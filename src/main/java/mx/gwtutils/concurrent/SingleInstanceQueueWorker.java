@@ -46,6 +46,7 @@ public abstract class SingleInstanceQueueWorker<GItem> {
 
 		synchronized (queue) {
 			if (queue.size() == 0) {
+				callFinalizeListener();
 				return;
 			}
 			thread.startIfRequired();
@@ -54,7 +55,7 @@ public abstract class SingleInstanceQueueWorker<GItem> {
 	}
 
 	public void processAllTimens(final WhenProcessed whenProcessed) {
-		this.startIfRequired();
+
 		this.finalizedListener.add(new WhenProcessed() {
 
 			@Override
@@ -63,6 +64,8 @@ public abstract class SingleInstanceQueueWorker<GItem> {
 				whenProcessed.thenDo();
 			}
 		});
+
+		this.startIfRequired();
 	}
 
 	public interface QueueShutdownCallback {
@@ -99,6 +102,16 @@ public abstract class SingleInstanceQueueWorker<GItem> {
 		return thread;
 	}
 
+	private void callFinalizeListener() {
+		if (finalizedListener.size() > 0) {
+			final ArrayList<WhenProcessed> toProcesses = new ArrayList<WhenProcessed>(
+					finalizedListener);
+			for (final WhenProcessed p : toProcesses) {
+				p.thenDo();
+			}
+		}
+	}
+
 	public SingleInstanceQueueWorker(final OneExecutor executor,
 			final Queue<GItem> queue) {
 		this.thread = new SingleInstanceThread(executor) {
@@ -123,13 +136,7 @@ public abstract class SingleInstanceQueueWorker<GItem> {
 
 					notifiyer.notifiyFinished();
 
-					if (finalizedListener.size() > 0) {
-						final ArrayList<WhenProcessed> toProcesses = new ArrayList<WhenProcessed>(
-								finalizedListener);
-						for (final WhenProcessed p : toProcesses) {
-							p.thenDo();
-						}
-					}
+					callFinalizeListener();
 
 					if (shutdownRequested) {
 						isShutDown = true;
