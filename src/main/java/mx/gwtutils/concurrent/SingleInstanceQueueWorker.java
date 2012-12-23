@@ -18,7 +18,7 @@ import one.utils.concurrent.OneExecutor;
 public abstract class SingleInstanceQueueWorker<GItem> {
 
 	private final SingleInstanceThread thread;
-	private final Queue<GItem> queue;
+	protected final Queue<GItem> queue;
 
 	private volatile boolean shutdownRequested = false;
 	private volatile boolean isShutDown = false;
