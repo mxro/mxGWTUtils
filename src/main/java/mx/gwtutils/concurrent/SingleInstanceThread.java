@@ -3,6 +3,8 @@
  */
 package mx.gwtutils.concurrent;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import one.utils.concurrent.OneExecutor;
 
 /**
@@ -17,7 +19,7 @@ import one.utils.concurrent.OneExecutor;
 public abstract class SingleInstanceThread {
 
 	private final OneExecutor executor;
-	private volatile Boolean isRunning;
+	private final AtomicBoolean isRunning;
 	private volatile long lastCall;
 	private long maxCalltime;
 	private final Notifiyer notifiyer;
@@ -28,24 +30,20 @@ public abstract class SingleInstanceThread {
 
 		if (maxCalltime > -1 && lastCall > -1
 				&& (System.currentTimeMillis() - lastCall) > maxCalltime) {
-			isRunning = false;
+			isRunning.set(false);
 			new Exception("Worker thread was manually reset.")
 					.printStackTrace(System.err);
 		}
 
-		synchronized (isRunning) {
-			if (isRunning) {
-				return;
-			}
-
-			isRunning = true;
+		if (!isRunning.compareAndSet(false, true)) {
+			return;
 		}
 
 		workerThread = executor.execute(new Runnable() {
 
 			@Override
 			public void run() {
-				assert isRunning;
+				assert isRunning.get();
 				lastCall = System.currentTimeMillis();
 
 				SingleInstanceThread.this.run(notifiyer);
@@ -66,12 +64,12 @@ public abstract class SingleInstanceThread {
 		 */
 		public void notifiyFinished() {
 			lastCall = -1;
-			isRunning = false;
+			isRunning.set(false);
 		}
 	}
 
 	public Boolean getIsRunning() {
-		return isRunning;
+		return isRunning.get();
 	}
 
 	public void setMaxCallTime(final long maxCallTimeInMs) {
@@ -92,7 +90,7 @@ public abstract class SingleInstanceThread {
 	public SingleInstanceThread(final OneExecutor executor) {
 		super();
 		this.executor = executor;
-		this.isRunning = false;
+		this.isRunning = new AtomicBoolean(false);
 		this.notifiyer = new Notifiyer();
 		this.maxCalltime = -1;
 		this.lastCall = -1;
