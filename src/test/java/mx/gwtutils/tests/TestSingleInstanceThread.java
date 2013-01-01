@@ -10,6 +10,7 @@ import java.util.concurrent.Future;
 
 import mx.gwtutils.concurrent.SingleInstanceThread;
 import one.utils.concurrent.OneExecutor;
+import one.utils.jre.OneUtilsJre;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -76,7 +77,8 @@ public class TestSingleInstanceThread {
 		final Queue<String> originalData = new ConcurrentLinkedQueue<String>();
 		final Vector<String> testData = new Vector<String>();
 
-		final SingleInstanceThread thread = new SingleInstanceThread(executor) {
+		final SingleInstanceThread thread = new SingleInstanceThread(executor,
+				OneUtilsJre.newJreConcurrency()) {
 
 			@Override
 			public void run(final Notifiyer notifiyer) {

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Vector;
 
+import one.utils.concurrent.Concurrency;
 import one.utils.concurrent.OneExecutor;
 
 /**
@@ -113,8 +114,8 @@ public abstract class SingleInstanceQueueWorker<GItem> {
 	}
 
 	public SingleInstanceQueueWorker(final OneExecutor executor,
-			final Queue<GItem> queue) {
-		this.thread = new SingleInstanceThread(executor) {
+			final Queue<GItem> queue, final Concurrency con) {
+		this.thread = new SingleInstanceThread(executor, con) {
 
 			@Override
 			public void run(final Notifiyer notifiyer) {

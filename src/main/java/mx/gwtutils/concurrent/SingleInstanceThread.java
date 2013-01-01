@@ -3,8 +3,8 @@
  */
 package mx.gwtutils.concurrent;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
+import one.utils.concurrent.Concurrency;
+import one.utils.concurrent.OneAtomicBoolean;
 import one.utils.concurrent.OneExecutor;
 
 /**
@@ -19,7 +19,7 @@ import one.utils.concurrent.OneExecutor;
 public abstract class SingleInstanceThread {
 
 	private final OneExecutor executor;
-	private final AtomicBoolean isRunning;
+	private final OneAtomicBoolean isRunning;
 	private volatile long lastCall;
 	private long maxCalltime;
 	private final Notifiyer notifiyer;
@@ -87,10 +87,11 @@ public abstract class SingleInstanceThread {
 	 */
 	public abstract void run(Notifiyer callWhenFinished);
 
-	public SingleInstanceThread(final OneExecutor executor) {
+	public SingleInstanceThread(final OneExecutor executor,
+			final Concurrency con) {
 		super();
 		this.executor = executor;
-		this.isRunning = new AtomicBoolean(false);
+		this.isRunning = con.newAtomicBoolean(false);
 		this.notifiyer = new Notifiyer();
 		this.maxCalltime = -1;
 		this.lastCall = -1;
