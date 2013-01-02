@@ -18,83 +18,83 @@ import one.utils.concurrent.OneExecutor;
  */
 public abstract class SingleInstanceThread {
 
-	private final OneExecutor executor;
-	private final OneAtomicBoolean isRunning;
-	private volatile long lastCall;
-	private long maxCalltime;
-	private final Notifiyer notifiyer;
+    private final OneExecutor executor;
+    private final OneAtomicBoolean isRunning;
+    private volatile long lastCall;
+    private long maxCalltime;
+    private final Notifiyer notifiyer;
 
-	private Object workerThread;
+    private Object workerThread;
 
-	public void startIfRequired() {
+    public void startIfRequired() {
 
-		if (maxCalltime > -1 && lastCall > -1
-				&& (System.currentTimeMillis() - lastCall) > maxCalltime) {
-			isRunning.set(false);
-			new Exception("Worker thread was manually reset.")
-					.printStackTrace(System.err);
-		}
+        if (maxCalltime > -1 && lastCall > -1
+                && (System.currentTimeMillis() - lastCall) > maxCalltime) {
+            isRunning.set(false);
+            new Exception("Worker thread was manually reset.")
+                    .printStackTrace(System.err);
+        }
 
-		if (!isRunning.compareAndSet(false, true)) {
-			return;
-		}
+        if (!isRunning.compareAndSet(false, true)) {
+            return;
+        }
 
-		workerThread = executor.execute(new Runnable() {
+        workerThread = executor.execute(new Runnable() {
 
-			@Override
-			public void run() {
-				assert isRunning.get();
-				lastCall = System.currentTimeMillis();
+            @Override
+            public void run() {
+                // assert isRunning.get();
+                lastCall = System.currentTimeMillis();
 
-				SingleInstanceThread.this.run(notifiyer);
-			}
+                SingleInstanceThread.this.run(notifiyer);
+            }
 
-		});
+        });
 
-	}
+    }
 
-	public Object getWorkerThread() {
-		return workerThread;
-	}
+    public Object getWorkerThread() {
+        return workerThread;
+    }
 
-	public class Notifiyer {
-		/**
-		 * This method must be called when all pending operations for this
-		 * thread are completed.
-		 */
-		public void notifiyFinished() {
-			lastCall = -1;
-			isRunning.set(false);
-		}
-	}
+    public class Notifiyer {
+        /**
+         * This method must be called when all pending operations for this
+         * thread are completed.
+         */
+        public void notifiyFinished() {
+            lastCall = -1;
+            isRunning.set(false);
+        }
+    }
 
-	public Boolean getIsRunning() {
-		return isRunning.get();
-	}
+    public Boolean getIsRunning() {
+        return isRunning.get();
+    }
 
-	public void setMaxCallTime(final long maxCallTimeInMs) {
-		this.maxCalltime = maxCallTimeInMs;
-	}
+    public void setMaxCallTime(final long maxCallTimeInMs) {
+        this.maxCalltime = maxCallTimeInMs;
+    }
 
-	public OneExecutor getExecutor() {
-		return executor;
-	}
+    public OneExecutor getExecutor() {
+        return executor;
+    }
 
-	/**
-	 * callWhenFinished.notifiyFinished must be called when finished.
-	 * 
-	 * @param callWhenFinished
-	 */
-	public abstract void run(Notifiyer callWhenFinished);
+    /**
+     * callWhenFinished.notifiyFinished must be called when finished.
+     * 
+     * @param callWhenFinished
+     */
+    public abstract void run(Notifiyer callWhenFinished);
 
-	public SingleInstanceThread(final OneExecutor executor,
-			final Concurrency con) {
-		super();
-		this.executor = executor;
-		this.isRunning = con.newAtomicBoolean(false);
-		this.notifiyer = new Notifiyer();
-		this.maxCalltime = -1;
-		this.lastCall = -1;
-	}
+    public SingleInstanceThread(final OneExecutor executor,
+            final Concurrency con) {
+        super();
+        this.executor = executor;
+        this.isRunning = con.newAtomicBoolean(false);
+        this.notifiyer = new Notifiyer();
+        this.maxCalltime = -1;
+        this.lastCall = -1;
+    }
 
 }
