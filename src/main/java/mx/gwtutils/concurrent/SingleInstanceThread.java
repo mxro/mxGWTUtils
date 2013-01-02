@@ -6,6 +6,7 @@ package mx.gwtutils.concurrent;
 import one.utils.concurrent.Concurrency;
 import one.utils.concurrent.OneAtomicBoolean;
 import one.utils.concurrent.OneExecutor;
+import one.utils.concurrent.OneExecutor.WhenExecutorShutDown;
 
 /**
  * A thread of which only one instance runs at any one time.<br/>
@@ -49,6 +50,32 @@ public abstract class SingleInstanceThread {
                 SingleInstanceThread.this.run(notifiyer);
             }
 
+        });
+
+    }
+
+    public static interface ThreadStoppedCallback {
+        public void onSuccess();
+
+        public void onFailure(Throwable t);
+    }
+
+    public void stop(final ThreadStoppedCallback callback) {
+        while (this.isRunning.get()) {
+            Thread.yield();
+        }
+
+        executor.shutdown(new WhenExecutorShutDown() {
+
+            @Override
+            public void thenDo() {
+                callback.onSuccess();
+            }
+
+            @Override
+            public void onFailure(final Throwable t) {
+                callback.onFailure(t);
+            }
         });
 
     }
