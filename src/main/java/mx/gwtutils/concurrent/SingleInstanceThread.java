@@ -61,9 +61,10 @@ public abstract class SingleInstanceThread {
     }
 
     public void stop(final ThreadStoppedCallback callback) {
-        while (this.isRunning.get()) {
-            Thread.yield();
-        }
+        // while (this.isRunning.get()) {
+        // Thread.yield();
+
+        // }
 
         executor.shutdown(new WhenExecutorShutDown() {
 
