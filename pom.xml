@@ -18,6 +18,7 @@
 			org.hamcrest.core,
 			org.hamcrest.internal,
 			one*,
+			one.utils.jre,
 			!*
 		</module.importedPackages>
 		<module.exportedPackages>!mx.gwtutils.internal*,mx.gwtutils*
