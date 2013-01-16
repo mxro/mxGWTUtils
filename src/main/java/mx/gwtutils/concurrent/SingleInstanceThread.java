@@ -93,6 +93,7 @@ public abstract class SingleInstanceThread {
         public void notifiyFinished() {
             lastCall = -1;
             isRunning.set(false);
+
         }
     }
 
@@ -114,6 +115,18 @@ public abstract class SingleInstanceThread {
      * @param callWhenFinished
      */
     public abstract void run(Notifiyer callWhenFinished);
+
+    /**
+     * Only to create this as dummy.
+     */
+    public SingleInstanceThread() {
+        super();
+        this.executor = null;
+        this.isRunning = null;
+        this.notifiyer = null;
+        this.maxCalltime = -1;
+        this.lastCall = -1;
+    }
 
     public SingleInstanceThread(final OneExecutor executor,
             final Concurrency con) {
