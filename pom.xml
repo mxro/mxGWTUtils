@@ -53,8 +53,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 		</dependency>
 
 
-		<!-- <dependency> <groupId>de.mxro.thrd.gwtuser</groupId> <artifactId>thrdGWTUser</artifactId> 
-			<version>[0.0.2,)</version> <scope>provided</scope> </dependency> -->
 
 		<dependency>
 			<groupId>de.mxro.thrd.hamcrestgwt</groupId>
@@ -101,7 +99,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 
 			<!-- FOR BUNDLE MANAGEMENT -->
 			<!-- The Maven bundle plugin generates Meta-data required for OSGi -->
-
 
 			<plugin>
 				<groupId>org.apache.felix</groupId>
