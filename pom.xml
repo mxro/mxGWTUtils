@@ -253,20 +253,30 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 			</resource>
 
 		</resources>
+		
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ssh-external</artifactId>
+				<version>2.5</version>
+			</extension>
+
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ssh</artifactId>
+				<version>2.5</version>
+			</extension>
+		</extensions>
 	</build>
 
 	<distributionManagement>
 		<repository>
-			<id>releases</id>
-			<name>Internal Releases</name>
-			<url>http://internal1.nxweb.de:8080/nexus/content/repositories/releases
-			</url>
+			<id>appjangle-releases</id>
+			<url>${repos.appjangle-releases}</url>
 		</repository>
 		<snapshotRepository>
-			<id>snapshots</id>
-			<name>Internal Snapshots</name>
-			<url>http://internal1.nxweb.de:8080/nexus/content/repositories/snapshots
-			</url>
+			<id>appjangle-snapshots</id>
+			<url>${repos.appjangle-snapshots}</url>
 		</snapshotRepository>
 	</distributionManagement>
 
