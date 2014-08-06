@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import de.mxro.async.callbacks.ListCallback;
 import mx.gwtutils.ThreadSpace;
 import mx.gwtutils.ThreadSpace.Step;
 import mx.gwtutils.internal.async.PendingMessageEntry;
-import one.async.joiner.ListCallback;
 
 /**
  * {@link CallbackSorter} will assure that callbacks for incoming messages are
