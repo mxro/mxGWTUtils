@@ -9,7 +9,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import mx.gwtutils.concurrent.SingleInstanceThread;
-import one.utils.concurrent.OneExecutor;
+import one.utils.concurrent.Executor;
 import one.utils.jre.OneUtilsJre;
 
 import org.junit.Assert;
@@ -48,7 +48,7 @@ public class TestSingleInstanceThread {
 	@Test
 	public void test_single_instance_thread_started_by_two_threads()
 			throws InterruptedException, ExecutionException {
-		final OneExecutor executor = new OneExecutor() {
+		final Executor executor = new Executor() {
 
 			@Override
 			public Object execute(final Runnable runnable) {
