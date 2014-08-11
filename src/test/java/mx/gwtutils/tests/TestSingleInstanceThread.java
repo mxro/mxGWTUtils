@@ -9,11 +9,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import mx.gwtutils.concurrent.SingleInstanceThread;
-import one.utils.concurrent.Executor;
 import one.utils.jre.OneUtilsJre;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import de.mxro.concurrency.Executor;
 
 public class TestSingleInstanceThread {
 

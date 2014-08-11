@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Vector;
 
-import one.utils.concurrent.Concurrency;
-import one.utils.concurrent.Executor;
+import de.mxro.concurrency.Concurrency;
+import de.mxro.concurrency.Executor;
 
 /**
  * Allows to build a queue of objects, which are processed sequentially and

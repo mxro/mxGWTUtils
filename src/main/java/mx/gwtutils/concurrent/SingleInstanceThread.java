@@ -3,10 +3,10 @@
  */
 package mx.gwtutils.concurrent;
 
-import one.utils.concurrent.Concurrency;
-import one.utils.concurrent.SimpleAtomicBoolean;
-import one.utils.concurrent.Executor;
-import one.utils.concurrent.Executor.WhenExecutorShutDown;
+import de.mxro.concurrency.Concurrency;
+import de.mxro.concurrency.Executor;
+import de.mxro.concurrency.SimpleAtomicBoolean;
+import de.mxro.concurrency.Executor.WhenExecutorShutDown;
 
 /**
  * A thread of which only one instance runs at any one time.<br/>
