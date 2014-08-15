@@ -52,12 +52,11 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 			<scope>provided</scope>
 		</dependency>
 
-		<dependency>
+		<!-- <dependency>
 			<groupId>de.mxro.thrd.hamcrestgwt</groupId>
 			<artifactId>thrdHamcrestGWT</artifactId>
 			<version>[0.0.3,)</version>
-
-		</dependency>
+		</dependency>-->
 
 		<dependency>
 			<groupId>junit</groupId>
