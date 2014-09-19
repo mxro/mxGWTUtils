@@ -5,8 +5,8 @@ package mx.gwtutils.concurrent;
 
 import de.mxro.concurrency.Concurrency;
 import de.mxro.concurrency.Executor;
-import de.mxro.concurrency.SimpleAtomicBoolean;
 import de.mxro.concurrency.Executor.WhenExecutorShutDown;
+import de.mxro.concurrency.wrappers.SimpleAtomicBoolean;
 
 /**
  * A thread of which only one instance runs at any one time.<br/>
