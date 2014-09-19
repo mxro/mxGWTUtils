@@ -4,9 +4,9 @@
 package mx.gwtutils.concurrent;
 
 import de.mxro.concurrency.Concurrency;
-import de.mxro.concurrency.Executor;
-import de.mxro.concurrency.Executor.WhenExecutorShutDown;
+import de.mxro.concurrency.wrappers.SimpleExecutor;
 import de.mxro.concurrency.wrappers.SimpleAtomicBoolean;
+import de.mxro.concurrency.wrappers.SimpleExecutor.WhenExecutorShutDown;
 
 /**
  * A thread of which only one instance runs at any one time.<br/>
@@ -19,7 +19,7 @@ import de.mxro.concurrency.wrappers.SimpleAtomicBoolean;
  */
 public abstract class SingleInstanceThread {
 
-    private final Executor executor;
+    private final SimpleExecutor executor;
     private final SimpleAtomicBoolean isRunning;
     private volatile long lastCall;
     private long maxCalltime;
@@ -105,7 +105,7 @@ public abstract class SingleInstanceThread {
         this.maxCalltime = maxCallTimeInMs;
     }
 
-    public Executor getExecutor() {
+    public SimpleExecutor getExecutor() {
         return executor;
     }
 
@@ -128,7 +128,7 @@ public abstract class SingleInstanceThread {
         this.lastCall = -1;
     }
 
-    public SingleInstanceThread(final Executor executor,
+    public SingleInstanceThread(final SimpleExecutor executor,
             final Concurrency con) {
         super();
         this.executor = executor;

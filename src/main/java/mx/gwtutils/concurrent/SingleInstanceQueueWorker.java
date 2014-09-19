@@ -6,7 +6,7 @@ import java.util.Queue;
 import java.util.Vector;
 
 import de.mxro.concurrency.Concurrency;
-import de.mxro.concurrency.Executor;
+import de.mxro.concurrency.wrappers.SimpleExecutor;
 
 /**
  * Allows to build a queue of objects, which are processed sequentially and
@@ -123,7 +123,7 @@ public abstract class SingleInstanceQueueWorker<GItem> {
         this.finalizedListener = null;
     }
 
-    public SingleInstanceQueueWorker(final Executor executor,
+    public SingleInstanceQueueWorker(final SimpleExecutor executor,
             final Queue<GItem> queue, final Concurrency con) {
 
         this.thread = new SingleInstanceThread(executor, con) {

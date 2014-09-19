@@ -14,7 +14,7 @@ import one.utils.jre.OneUtilsJre;
 import org.junit.Assert;
 import org.junit.Test;
 
-import de.mxro.concurrency.Executor;
+import de.mxro.concurrency.wrappers.SimpleExecutor;
 
 public class TestSingleInstanceThread {
 
@@ -49,7 +49,7 @@ public class TestSingleInstanceThread {
 	@Test
 	public void test_single_instance_thread_started_by_two_threads()
 			throws InterruptedException, ExecutionException {
-		final Executor executor = new Executor() {
+		final SimpleExecutor executor = new SimpleExecutor() {
 
 			@Override
 			public Object execute(final Runnable runnable) {
