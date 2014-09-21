@@ -41,8 +41,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 			<artifactId>oneUtils</artifactId>
 			<version>[0.0.1,)</version>
 		</dependency>
-		<!-- <dependency> <groupId>de.mxro.thrd.guavagwt</groupId> <artifactId>thrdGuavaGwt</artifactId> 
-			<version>[0.0.1,)</version> </dependency> -->
 
 		<!-- only for gwt maven plugin!!! -->
 		<dependency>
