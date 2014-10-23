@@ -4,8 +4,8 @@
 package mx.gwtutils.concurrent;
 
 import de.mxro.concurrency.Concurrency;
-import de.mxro.concurrency.wrappers.SimpleExecutor;
 import de.mxro.concurrency.wrappers.SimpleAtomicBoolean;
+import de.mxro.concurrency.wrappers.SimpleExecutor;
 import de.mxro.concurrency.wrappers.SimpleExecutor.WhenExecutorShutDown;
 
 /**
@@ -29,12 +29,12 @@ public abstract class SingleInstanceThread {
 
     public void startIfRequired() {
 
-        if (maxCalltime > -1 && lastCall > -1
-                && (System.currentTimeMillis() - lastCall) > maxCalltime) {
-            isRunning.set(false);
-            new Exception("Worker thread was manually reset.")
-                    .printStackTrace(System.err);
-        }
+        /*
+         * if (maxCalltime > -1 && lastCall > -1 && (System.currentTimeMillis()
+         * - lastCall) > maxCalltime) { isRunning.set(false); new
+         * Exception("Worker thread was manually reset.")
+         * .printStackTrace(System.err); }
+         */
 
         if (!isRunning.compareAndSet(false, true)) {
             return;
@@ -45,7 +45,7 @@ public abstract class SingleInstanceThread {
             @Override
             public void run() {
                 // assert isRunning.get();
-                lastCall = System.currentTimeMillis();
+                // lastCall = System.currentTimeMillis();
 
                 SingleInstanceThread.this.run(notifiyer);
             }
@@ -128,8 +128,7 @@ public abstract class SingleInstanceThread {
         this.lastCall = -1;
     }
 
-    public SingleInstanceThread(final SimpleExecutor executor,
-            final Concurrency con) {
+    public SingleInstanceThread(final SimpleExecutor executor, final Concurrency con) {
         super();
         this.executor = executor;
         this.isRunning = con.newAtomicBoolean(false);
