@@ -130,8 +130,12 @@ public final class CallbackSorter<GMessage, GResponse> {
             final int position = getEntryPosition(messages);
 
             if (!(position >= 0)) {
-                throw new RuntimeException("No message is defined for reported failure.\n" + "  Exception: ["
-                        + t.getMessage() + "]\n" + "  " + "Messages in cache: [" + messages + "]", t);
+                throw new RuntimeException(t);
+                // throw new
+                // RuntimeException("No message is defined for reported failure.\n"
+                // + "  Exception: ["
+                // + t.getMessage() + "]\n" + "  " + "Messages in cache: [" +
+                // messages + "]", t);
             }
 
             final PendingMessageEntry<GMessage, GResponse> e = getEntry(position);
