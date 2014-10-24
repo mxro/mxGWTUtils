@@ -18,7 +18,7 @@ import de.mxro.async.callbacks.ListCallback;
  * @param <GMessage>
  * @param <GResponse>
  */
-public class CallbackSorter<GMessage, GResponse> {
+public final class CallbackSorter<GMessage, GResponse> {
 
     private final Vector<PendingMessageEntry<GMessage, GResponse>> sentMessages;
     private final ThreadSpace clientThreadSpace;
@@ -34,14 +34,13 @@ public class CallbackSorter<GMessage, GResponse> {
                 sentMessages);
 
         for (final PendingMessageEntry<GMessage, GResponse> entry : localMessages) {
-            // System.out.println(entry.messages + " = " + messages);
             if (entry.messages == messages) {
                 assert position == -1 : "Messages defined in cache more than once: [" + messages + "]";
                 position = i;
             }
             i++;
         }
-        // System.out.println("in position: "+position);
+
         return position;
     }
 
