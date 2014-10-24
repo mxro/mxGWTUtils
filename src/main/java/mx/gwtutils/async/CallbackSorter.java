@@ -130,6 +130,7 @@ public final class CallbackSorter<GMessage, GResponse> {
             final int position = getEntryPosition(messages);
 
             if (!(position >= 0)) {
+                // failure might be triggered within onSuccess?!?
                 throw new RuntimeException(t);
                 // throw new
                 // RuntimeException("No message is defined for reported failure.\n"
