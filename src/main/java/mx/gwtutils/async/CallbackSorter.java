@@ -132,8 +132,9 @@ public final class CallbackSorter<GMessage, GResponse> {
             if (!(position >= 0)) {
                 // failure might be triggered within onSuccess?!?
                 // throw new RuntimeException(t);
-                throw new RuntimeException("No message is defined for reported failure.\n" + "  Exception: ["
-                        + t.getMessage() + "]\n" + "  " + "Messages in cache: [" + messages + "]", t);
+                throw new RuntimeException("Uncaught exception: [" + t.getMessage()
+                        + "No message is defined for reported failure.\n" + "]\n" + "  " + "Messages in cache: ["
+                        + messages + "]", t);
             }
 
             final PendingMessageEntry<GMessage, GResponse> e = getEntry(position);
