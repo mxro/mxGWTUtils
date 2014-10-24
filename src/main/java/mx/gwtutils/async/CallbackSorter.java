@@ -59,7 +59,6 @@ public final class CallbackSorter<GMessage, GResponse> {
 
         final PendingMessageEntry<GMessage, GResponse> zeroEntry = sentMessages.get(0);
 
-        // System.out.println("process: "+zeroEntry.messages);
         if (zeroEntry.responses != null || zeroEntry.t != null) {
             assert zeroEntry.callback != null;
             sentMessages.remove(0);
@@ -98,8 +97,6 @@ public final class CallbackSorter<GMessage, GResponse> {
      * @return
      */
     public ListCallback<GResponse> createCallback(final List<GMessage> messages, final ListCallback<GResponse> callback) {
-        // System.out.println("messages sent: "+messages);
-        // System.out.println("messages sent: "+messages);
         this.registerMessage(messages);
 
         return new SortedCallback(messages, callback);
