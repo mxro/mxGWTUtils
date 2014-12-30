@@ -71,6 +71,8 @@ public abstract class SingleInstanceQueueWorker<GItem> {
 
     public interface QueueShutdownCallback {
         public void onShutdown();
+
+        public void onFailure(Throwable t);
     }
 
     public void requestShutdown(final QueueShutdownCallback callback) {
@@ -87,9 +89,7 @@ public abstract class SingleInstanceQueueWorker<GItem> {
     public void offer(final GItem item) {
         synchronized (queue) {
             if (isShutDown) {
-                throw new IllegalStateException(
-                        "Cannot submit tasks for a shutdown worker: [" + item
-                                + "]");
+                throw new IllegalStateException("Cannot submit tasks for a shutdown worker: [" + item + "]");
             }
             queue.offer(item);
         }
@@ -105,8 +105,7 @@ public abstract class SingleInstanceQueueWorker<GItem> {
 
     private void callFinalizeListener() {
         if (finalizedListener.size() > 0) {
-            final ArrayList<WhenProcessed> toProcesses = new ArrayList<WhenProcessed>(
-                    finalizedListener);
+            final ArrayList<WhenProcessed> toProcesses = new ArrayList<WhenProcessed>(finalizedListener);
             for (final WhenProcessed p : toProcesses) {
                 p.thenDo();
             }
@@ -123,8 +122,7 @@ public abstract class SingleInstanceQueueWorker<GItem> {
         this.finalizedListener = null;
     }
 
-    public SingleInstanceQueueWorker(final SimpleExecutor executor,
-            final Queue<GItem> queue, final Concurrency con) {
+    public SingleInstanceQueueWorker(final SimpleExecutor executor, final Queue<GItem> queue, final Concurrency con) {
 
         this.thread = new SingleInstanceThread(executor, con) {
 
@@ -134,8 +132,7 @@ public abstract class SingleInstanceQueueWorker<GItem> {
                 synchronized (queue) {
 
                     while (queue.size() > 0) {
-                        final List<GItem> items = new ArrayList<GItem>(
-                                queue.size());
+                        final List<GItem> items = new ArrayList<GItem>(queue.size());
 
                         GItem next;
                         while ((next = queue.poll()) != null) {
@@ -160,8 +157,7 @@ public abstract class SingleInstanceQueueWorker<GItem> {
 
         };
         this.queue = queue;
-        this.finalizedListener = new Vector<SingleInstanceQueueWorker.WhenProcessed>(
-                5);
+        this.finalizedListener = new Vector<SingleInstanceQueueWorker.WhenProcessed>(5);
     }
 
 }
