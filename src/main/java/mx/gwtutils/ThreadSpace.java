@@ -10,67 +10,68 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * used to synchronized events originating from multiple threads into one stream
+ * Used to synchronized events originating from multiple threads into one stream
  * of commands.
  * 
  * @author mroh004
  * 
  */
+@Deprecated
 public class ThreadSpace {
 
-	public static interface Step {
-		public void process();
-	}
-	
-	protected final List<Step> steps;
+    public static interface Step {
+        public void process();
+    }
 
-	protected volatile boolean processing;
+    protected final List<Step> steps;
 
-	protected void processStepsGuarded() {
+    protected volatile boolean processing;
 
-		final List<Step> stepsToBeProcessed = new ArrayList<Step>(steps.size());
-		stepsToBeProcessed.addAll(steps);
+    protected void processStepsGuarded() {
 
-		for (final Step step : stepsToBeProcessed) {
-			try {
-				step.process();
-			} finally {
-				steps.remove(step);
-			}
-		}
+        final List<Step> stepsToBeProcessed = new ArrayList<Step>(steps.size());
+        stepsToBeProcessed.addAll(steps);
 
-	}
+        for (final Step step : stepsToBeProcessed) {
+            try {
+                step.process();
+            } finally {
+                steps.remove(step);
+            }
+        }
 
-	public synchronized void processSteps() {
-		// this is not very thread safe but should
-		// be good enough for JavaScript
-		// for Java Threads, the synchronized flag for the method should work.
+    }
 
-		if (processing) {
-			return;
-		}
+    public synchronized void processSteps() {
+        // this is not very thread safe but should
+        // be good enough for JavaScript
+        // for Java Threads, the synchronized flag for the method should work.
 
-		try {
-			processing = true;
+        if (processing) {
+            return;
+        }
 
-			while (steps.size() > 0) {
-				processStepsGuarded();
-			}
+        try {
+            processing = true;
 
-		} finally {
-			processing = false;
-		}
+            while (steps.size() > 0) {
+                processStepsGuarded();
+            }
 
-	}
+        } finally {
+            processing = false;
+        }
 
-	public synchronized void add(final Step s) {
-		this.steps.add(s);
-	}
+    }
 
-	public ThreadSpace() {
-		super();
-		this.processing = false;
-		this.steps = new LinkedList<Step>();
-	}
+    public synchronized void add(final Step s) {
+        this.steps.add(s);
+    }
+
+    public ThreadSpace() {
+        super();
+        this.processing = false;
+        this.steps = new LinkedList<Step>();
+    }
 
 }
