@@ -5,7 +5,7 @@
  ******************************************************************************/
 package mx.gwtutils;
 
-import de.mxro.concurrency.schedule.ThreadSpace.Step;
+import de.mxro.concurrency.schedule.Step;
 import mx.gwtutils.tests.AbstractTimer;
 
 /**

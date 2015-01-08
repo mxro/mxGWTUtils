@@ -6,8 +6,8 @@ import java.util.Vector;
 
 import mx.gwtutils.internal.async.PendingMessageEntry;
 import de.mxro.async.callbacks.ListCallback;
+import de.mxro.concurrency.schedule.Step;
 import de.mxro.concurrency.schedule.ThreadSpace;
-import de.mxro.concurrency.schedule.ThreadSpace.Step;
 
 /**
  * {@link CallbackSorter} will assure that callbacks for incoming messages are
