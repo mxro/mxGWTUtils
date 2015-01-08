@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><!-- Template: Source + GWT + in workspace dependencies 27.11.2010 --><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!-- Template: Source 
+	+ GWT + in workspace dependencies 27.11.2010 --><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<groupId>de.mxro.gtwutils</groupId>
 	<artifactId>mxGWTUtils</artifactId>
 	<version>0.1.2-SNAPSHOT</version>
@@ -37,6 +38,11 @@
 			<groupId>one.utils</groupId>
 			<artifactId>oneUtils</artifactId>
 			<version>0.1.1</version>
+		</dependency>
+		<dependency>
+			<artifactId>concurrency-api</artifactId>
+			<groupId>de.mxro.concurrency</groupId>
+			<version>0.0.5</version>
 		</dependency>
 
 		<!-- only for gwt maven plugin!!! -->
@@ -81,7 +87,7 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
-			
+
 			<!-- FOR BUNDLE MANAGEMENT -->
 			<!-- The Maven bundle plugin generates Meta-data required for OSGi -->
 			<plugin>
@@ -151,7 +157,7 @@
 			<plugin>
 				<artifactId>maven-dependency-plugin</artifactId>
 				<executions>
-					
+
 				</executions>
 			</plugin>
 
@@ -191,7 +197,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>findbugs-maven-plugin</artifactId>
@@ -300,7 +306,7 @@
 					</reportPlugins>
 				</configuration>
 			</plugin>
-			
+
 		</plugins>
 
 		<!-- RESOURCES -->
@@ -351,7 +357,7 @@
 			</resource>
 
 		</resources>
-		
+
 		<extensions>
 			<extension>
 				<groupId>org.apache.maven.wagon</groupId>
@@ -377,14 +383,14 @@
 			<url>${repos.appjangle-snapshots}</url>
 		</snapshotRepository>
 	</distributionManagement>
-	
+
 	<repositories>
 		<repository>
 			<id>Appjangle Releases</id>
 			<url>http://maven.appjangle.com/appjangle/releases</url>
 		</repository>
 	</repositories>
-	
+
 	<developers>
 		<developer>
 			<id>mxro</id>
