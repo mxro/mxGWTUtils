@@ -8,12 +8,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import mx.gwtutils.concurrent.SingleInstanceThread;
 import one.utils.jre.OneUtilsJre;
 
 import org.junit.Assert;
 import org.junit.Test;
 
+import de.mxro.concurrency.schedule.SingleInstanceThread;
 import de.mxro.concurrency.wrappers.SimpleExecutor;
 
 public class TestSingleInstanceThread {

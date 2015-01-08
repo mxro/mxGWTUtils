@@ -6,6 +6,7 @@ import java.util.Queue;
 import java.util.Vector;
 
 import de.mxro.concurrency.Concurrency;
+import de.mxro.concurrency.schedule.SingleInstanceThread;
 import de.mxro.concurrency.wrappers.SimpleExecutor;
 
 /**
