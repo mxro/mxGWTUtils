@@ -5,9 +5,9 @@
  ******************************************************************************/
 package mx.gwtutils.internal.async;
 
-import java.util.List;
-
 import delight.async.callbacks.ListCallback;
+
+import java.util.List;
 
 
 public class PendingMessageEntry<GMessage, GResponse> {
