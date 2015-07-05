@@ -5,10 +5,10 @@
  ******************************************************************************/
 package mx.gwtutils.tests;
 
-import mx.gwtutils.MxroGWTUtils;
-
 import org.junit.Assert;
 import org.junit.Test;
+
+import mx.gwtutils.MxroGWTUtils;
 
 public class TestStringUtils {
 
