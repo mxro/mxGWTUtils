@@ -40,8 +40,8 @@
 			<version>0.1.1</version>
 		</dependency>
 		<dependency>
-			<artifactId>concurrency-api</artifactId>
-			<groupId>de.mxro.concurrency</groupId>
+			<artifactId>delight-concurrency</artifactId>
+			<groupId>org.javadelight</groupId>
 			<version>0.0.5</version>
 		</dependency>
 
