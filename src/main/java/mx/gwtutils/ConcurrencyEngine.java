@@ -5,7 +5,8 @@
  ******************************************************************************/
 package mx.gwtutils;
 
-import de.mxro.concurrency.schedule.Step;
+import delight.concurrency.schedule.Step;
+
 import mx.gwtutils.tests.AbstractTimer;
 
 /**

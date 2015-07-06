@@ -1,5 +1,8 @@
 package mx.gwtutils.tests;
 
+import delight.concurrency.schedule.SingleInstanceThread;
+import delight.concurrency.wrappers.SimpleExecutor;
+
 import java.util.Queue;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -11,8 +14,6 @@ import java.util.concurrent.Future;
 import org.junit.Assert;
 import org.junit.Test;
 
-import de.mxro.concurrency.schedule.SingleInstanceThread;
-import de.mxro.concurrency.wrappers.SimpleExecutor;
 import one.utils.jre.OneUtilsJre;
 
 public class TestSingleInstanceThread {
