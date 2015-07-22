@@ -33,7 +33,13 @@
 			<artifactId>oneAsync</artifactId>
 			<version>0.1.1</version>
 		</dependency>
-
+		
+		<dependency>
+		<groupId>org.javadelight</groupId>
+	<artifactId>delight-strings</artifactId>
+	<version>[0.0.1,)</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>one.utils</groupId>
 			<artifactId>oneUtils</artifactId>
