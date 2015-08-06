@@ -5,6 +5,8 @@
  ******************************************************************************/
 package mx.gwtutils.tests;
 
+import delight.strings.UriUtils;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -27,11 +29,11 @@ public class TestStringUtils {
 
 	@Test
 	public void test_get_file_seperator() {
-		Assert.assertEquals("M:\\Eclipse\\mxGWTUtils\\test" + "", MxroGWTUtils
+		Assert.assertEquals("M:\\Eclipse\\mxGWTUtils\\test" + "", UriUtils
 				.removeExtension("M:\\Eclipse\\mxGWTUtils\\test.txt"));
 
 		Assert.assertEquals("/Eclipse/mxGWTUtils/test",
-				MxroGWTUtils.removeExtension("/Eclipse/mxGWTUtils/test.txt"));
+				UriUtils.removeExtension("/Eclipse/mxGWTUtils/test.txt"));
 
 	}
 
