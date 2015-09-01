@@ -223,14 +223,6 @@ public class MxroGWTUtils {
         return ofString.concat("/");
     }
 
-    public static String assertNoSlash(final String ofString) {
-        if (!ofString.endsWith("/")) {
-            return ofString;
-        }
-
-        return ofString.substring(0, ofString.length() - 1);
-    }
-
     public static <GPType> List<GPType> asList(final GPType node) {
         final List<GPType> list = new Vector<GPType>(1);
         list.add(node);

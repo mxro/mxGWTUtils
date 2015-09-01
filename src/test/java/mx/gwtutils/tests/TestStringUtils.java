@@ -42,7 +42,7 @@ public class TestStringUtils {
 		{
 			final String uri = "http://localhost/";
 			Assert.assertEquals("http://localhost",
-					MxroGWTUtils.assertNoSlash(uri));
+					UriUtils.assertNoSlash(uri));
 		}
 	}
 
