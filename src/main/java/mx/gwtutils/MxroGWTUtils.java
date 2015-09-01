@@ -215,14 +215,6 @@ public class MxroGWTUtils {
         assert!uri.equals("") : "Uri cannot be empty";
     }
 
-    public static String assertSlash(final String ofString) {
-        if (ofString.endsWith("/")) {
-            return ofString;
-        }
-
-        return ofString.concat("/");
-    }
-
     public static <GPType> List<GPType> asList(final GPType node) {
         final List<GPType> list = new Vector<GPType>(1);
         list.add(node);
