@@ -1,5 +1,6 @@
 package mx.gwtutils.tests;
 
+import delight.async.callbacks.SimpleCallback;
 import delight.concurrency.schedule.SingleInstanceThread;
 import delight.concurrency.wrappers.SimpleExecutor;
 
@@ -18,96 +19,92 @@ import one.utils.jre.OneUtilsJre;
 
 public class TestSingleInstanceThread {
 
-	private final class Worker implements Runnable {
-		private final SingleInstanceThread thread;
-		private final Queue<String> originalData;
+    private final class Worker implements Runnable {
+        private final SingleInstanceThread thread;
+        private final Queue<String> originalData;
 
-		private Worker(final SingleInstanceThread thread,
-				final Queue<String> originalData) {
-			this.thread = thread;
-			this.originalData = originalData;
-		}
+        private Worker(final SingleInstanceThread thread, final Queue<String> originalData) {
+            this.thread = thread;
+            this.originalData = originalData;
+        }
 
-		@Override
-		public void run() {
-			for (int j = 1; j <= 1000; j++) {
-				originalData.offer("item" + j);
-			}
-			for (int i = 1; i <= 100; i++) {
+        @Override
+        public void run() {
+            for (int j = 1; j <= 1000; j++) {
+                originalData.offer("item" + j);
+            }
+            for (int i = 1; i <= 100; i++) {
 
-				thread.startIfRequired();
-				Thread.yield();
-				try {
-					Thread.sleep(1);
-				} catch (final InterruptedException e) {
+                thread.startIfRequired();
+                Thread.yield();
+                try {
+                    Thread.sleep(1);
+                } catch (final InterruptedException e) {
 
-				}
-			}
-		}
-	}
+                }
+            }
+        }
+    }
 
-	@Test
-	public void test_single_instance_thread_started_by_two_threads()
-			throws InterruptedException, ExecutionException {
-		final SimpleExecutor executor = new SimpleExecutor() {
+    @Test
+    public void test_single_instance_thread_started_by_two_threads() throws InterruptedException, ExecutionException {
+        final SimpleExecutor executor = new SimpleExecutor() {
 
-			@Override
-			public Object execute(final Runnable runnable) {
-				final Thread thread = new Thread() {
-					@Override
-					public void run() {
-						runnable.run();
-					}
-				};
-				thread.start();
-				return thread;
-			}
+            @Override
+            public Object execute(final Runnable runnable) {
+                final Thread thread = new Thread() {
+                    @Override
+                    public void run() {
+                        runnable.run();
+                    }
+                };
+                thread.start();
+                return thread;
+            }
 
-			@Override
-			public void shutdown(final WhenExecutorShutDown callback) {
-				callback.onSuccess();
-			}
+            @Override
+            public void shutdown(final SimpleCallback callback) {
+                callback.onSuccess();
+            }
 
-			@Override
-			public Object getCurrentThread() {
-				return Thread.currentThread();
-			}
+            @Override
+            public Object getCurrentThread() {
+                return Thread.currentThread();
+            }
 
-		};
+        };
 
-		final Queue<String> originalData = new ConcurrentLinkedQueue<String>();
-		final Vector<String> testData = new Vector<String>();
+        final Queue<String> originalData = new ConcurrentLinkedQueue<String>();
+        final Vector<String> testData = new Vector<String>();
 
-		final SingleInstanceThread thread = new SingleInstanceThread(executor,
-				OneUtilsJre.newJreConcurrency()) {
+        final SingleInstanceThread thread = new SingleInstanceThread(executor, OneUtilsJre.newJreConcurrency()) {
 
-			@Override
-			public void run(final Notifiyer notifiyer) {
-				for (final String text : testData) {
-					text.toLowerCase();
-				}
-				String value;
-				while ((value = originalData.poll()) != null) {
-					testData.add(value);
-				}
+            @Override
+            public void run(final Notifiyer notifiyer) {
+                for (final String text : testData) {
+                    text.toLowerCase();
+                }
+                String value;
+                while ((value = originalData.poll()) != null) {
+                    testData.add(value);
+                }
 
-				notifiyer.notifiyFinished();
-			}
-		};
+                notifiyer.notifiyFinished();
+            }
+        };
 
-		final Runnable worker = new Worker(thread, originalData);
+        final Runnable worker = new Worker(thread, originalData);
 
-		final ExecutorService cachedThreadPool = Executors
-				.newCachedThreadPool();
+        final ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
 
-		final Future<?> worker1 = cachedThreadPool.submit(worker);
-		final Future<?> worker2 = cachedThreadPool.submit(worker);
-		final Future<?> worker3 = cachedThreadPool.submit(worker);
+        final Future<?> worker1 = cachedThreadPool.submit(worker);
+        final Future<?> worker2 = cachedThreadPool.submit(worker);
+        final Future<?> worker3 = cachedThreadPool.submit(worker);
 
-		worker1.get();
-		worker2.get();
-		worker3.get();
+        worker1.get();
+        worker2.get();
+        worker3.get();
 
-		Assert.assertEquals(testData.size(), 3000);
-	}
+        Assert.assertEquals(testData.size(), 3000);
+    }
 }
