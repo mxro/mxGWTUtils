@@ -6,6 +6,7 @@ import delight.concurrency.wrappers.SimpleExecutor;
 
 import java.util.Queue;
 import java.util.Vector;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -65,6 +66,23 @@ public class TestSingleInstanceThread {
             @Override
             public void shutdown(final SimpleCallback callback) {
                 callback.onSuccess();
+            }
+
+            @Override
+            public void execute(final Callable<Object> callable, final int timeout) {
+                execute(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        try {
+                            callable.call();
+                        } catch (final Exception e) {
+                            throw new RuntimeException(e);
+                        }
+
+                    }
+                });
+
             }
 
         };
