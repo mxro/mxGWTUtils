@@ -67,11 +67,6 @@ public class TestSingleInstanceThread {
                 callback.onSuccess();
             }
 
-            @Override
-            public Object getCurrentThread() {
-                return Thread.currentThread();
-            }
-
         };
 
         final Queue<String> originalData = new ConcurrentLinkedQueue<String>();
