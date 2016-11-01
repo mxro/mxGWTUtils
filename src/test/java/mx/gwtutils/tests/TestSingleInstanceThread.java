@@ -85,6 +85,11 @@ public class TestSingleInstanceThread {
 
             }
 
+            @Override
+            public int pendingTasks() {
+                return 0;
+            }
+
         };
 
         final Queue<String> originalData = new ConcurrentLinkedQueue<String>();
