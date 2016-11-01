@@ -51,7 +51,7 @@ public class TestSingleInstanceThread {
         final SimpleExecutor executor = new SimpleExecutor() {
 
             @Override
-            public Object execute(final Runnable runnable) {
+            public void execute(final Runnable runnable) {
                 final Thread thread = new Thread() {
                     @Override
                     public void run() {
@@ -59,7 +59,7 @@ public class TestSingleInstanceThread {
                     }
                 };
                 thread.start();
-                return thread;
+
             }
 
             @Override
