@@ -68,7 +68,7 @@ public class TestSingleInstanceThread {
             }
 
             @Override
-            public void execute(final Runnable runnable, final int timeout) {
+            public void execute(final Runnable runnable, final int timeout, final Runnable onTimeout) {
                 execute(new Runnable() {
 
                     @Override
