@@ -8,7 +8,7 @@
   
   
    <inherits name='one.utils.OneUtils'/>
-   <inherits name='one.async.OneAsync'/>
+  
   <!-- Inherit the core Web Toolkit stuff.                        -->
   <inherits name='com.google.gwt.user.User'/>
 	
