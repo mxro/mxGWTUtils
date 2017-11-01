@@ -11,7 +11,7 @@ package mx.gwtutils.internal;
  * @author Max
  *
  */
-public class DummyEntryPoint {
+public class DummyEntryPoint implements com.google.gwt.core.client.EntryPoint  {
 
 	public void onModuleLoad() {
 
